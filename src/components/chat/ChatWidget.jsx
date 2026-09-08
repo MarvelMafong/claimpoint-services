@@ -15,27 +15,30 @@ export default function ChatWidget() {
   const [position, setPosition] = useState(null); // null = default CSS position
   const [dragging, setDragging] = useState(false);
   const [keyboardOffset, setKeyboardOffset] = useState(0);
+  const [inputFocused, setInputFocused] = useState(false);
   const scrollRef = useRef(null);
   const dragStartRef = useRef(null);
 
-  // Tracks the mobile keyboard opening/closing via the visual viewport
-  // (which shrinks when the keyboard shows, unlike the layout viewport
-  // that position: fixed is anchored to) — without this, the panel's
-  // bottom edge stays exactly where it was and the keyboard just covers
-  // whatever was there, which was the input row.
+  // Only tracks the keyboard while the message input is actually
+  // focused — previously listened for any viewport change at all,
+  // which also fires when the browser's own address bar hides/shows
+  // during normal scrolling, permanently shifting the bubble upward
+  // even with no keyboard open.
   useEffect(() => {
-    if (typeof window === 'undefined' || !window.visualViewport) return;
+    if (typeof window === 'undefined' || !window.visualViewport || !inputFocused) {
+      setKeyboardOffset(0);
+      return;
+    }
     function handleViewportChange() {
       const offset = window.innerHeight - window.visualViewport.height - window.visualViewport.offsetTop;
       setKeyboardOffset(offset > 0 ? offset : 0);
     }
+    handleViewportChange();
     window.visualViewport.addEventListener('resize', handleViewportChange);
-    window.visualViewport.addEventListener('scroll', handleViewportChange);
     return () => {
       window.visualViewport.removeEventListener('resize', handleViewportChange);
-      window.visualViewport.removeEventListener('scroll', handleViewportChange);
     };
-  }, []);
+  }, [inputFocused]);
 
   useEffect(() => {
     const saved = localStorage.getItem(POSITION_KEY);
@@ -208,6 +211,8 @@ export default function ChatWidget() {
               placeholder="Type a message"
               value={draft}
               onChange={(e) => setDraft(e.target.value)}
+              onFocus={() => setInputFocused(true)}
+              onBlur={() => setInputFocused(false)}
               disabled={sending}
             />
             <button type="submit" disabled={sending || !draft.trim()}>Send</button>

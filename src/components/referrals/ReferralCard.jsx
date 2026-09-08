@@ -5,7 +5,14 @@ import styles from './ReferralCard.module.css';
 
 export default function ReferralCard({ referralCode }) {
   const [copied, setCopied] = useState(false);
-  const link = referralCode ? `https://claimpoint.com/signup?ref=${referralCode}` : null;
+
+  // Was hardcoded to claimpoint.com — a real, unrelated domain someone
+  // else owns — instead of the actual live site. Using the real origin
+  // at runtime instead, so this is correct wherever the app is actually
+  // deployed (vercel.app now, the real domain later) without needing
+  // another manual fix when that changes.
+  const origin = typeof window !== 'undefined' ? window.location.origin : 'https://claimpoint.vercel.app';
+  const link = referralCode ? `${origin}/signup?ref=${referralCode}` : null;
 
   async function handleCopy() {
     if (!link) return;
