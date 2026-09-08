@@ -1,0 +1,128 @@
+.form {
+  max-width: 440px;
+}
+
+.sectionTitle {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.successMsg {
+  padding: var(--space-3);
+  background: rgba(53, 214, 163, 0.12);
+  color: var(--color-success-text);
+  border-radius: 10px;
+  font-size: 12.5px;
+  margin-bottom: var(--space-4);
+}
+
+.errorMsg {
+  padding: var(--space-3);
+  background: var(--color-danger-bg);
+  color: #8a3e3e;
+  border-radius: 10px;
+  font-size: 12.5px;
+  margin-bottom: var(--space-4);
+}
+
+.fieldRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.field {
+  margin-bottom: var(--space-4);
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.field input {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-cloud);
+  border-radius: 10px;
+  font-size: 13.5px;
+}
+
+.btnPrimary {
+  padding: 11px 24px;
+  border-radius: 10px;
+  background: var(--color-indigo);
+  color: var(--color-white);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.65;
+}
+
+.toggleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  max-width: 500px;
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-white);
+  border: 1px solid var(--color-cloud);
+  border-radius: 14px;
+}
+
+.toggleLabel {
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.toggleDesc {
+  font-size: 12px;
+  color: var(--color-slate);
+}
+
+.switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-cloud);
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s var(--ease-out);
+}
+
+.switch.on {
+  background: var(--color-indigo);
+}
+
+.switchKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-white);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.switch.on .switchKnob {
+  transform: translateX(18px);
+}
+
+@media (max-width: 480px) {
+  .fieldRow {
+    grid-template-columns: 1fr;
+  }
+}

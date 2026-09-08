@@ -1,0 +1,136 @@
+.section {
+  padding: 120px 0;
+}
+
+.inner {
+  width: 90%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.head {
+  max-width: 620px;
+  margin-bottom: 64px;
+}
+
+.eyebrow {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-indigo);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
+  display: block;
+}
+
+.head h2 {
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 3vw, 40px);
+  letter-spacing: -0.015em;
+  line-height: 1.15;
+  color: var(--color-ink);
+}
+
+.sub {
+  font-size: 16px;
+  color: var(--color-slate);
+  line-height: 1.6;
+  margin-top: var(--space-4);
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+.pillar {
+  border-radius: var(--radius-lg);
+  padding: 44px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.pillar:hover {
+  transform: translateY(-6px);
+}
+
+.recovery {
+  background: linear-gradient(155deg, var(--color-ink) 0%, #241f42 100%);
+  color: var(--color-white);
+}
+
+.banking {
+  background: var(--color-lavender);
+  color: var(--color-ink);
+}
+
+.icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 28px;
+}
+
+.recovery .icon {
+  background: rgba(255, 138, 107, 0.18);
+}
+
+.banking .icon {
+  background: rgba(91, 75, 255, 0.12);
+}
+
+.pillar h3 {
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 600;
+  font-size: 24px;
+  margin-bottom: var(--space-3);
+  letter-spacing: -0.01em;
+}
+
+.pillar p {
+  font-size: 15px;
+  line-height: 1.65;
+  opacity: 0.85;
+  margin-bottom: var(--space-8);
+}
+
+.pillar ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+}
+
+.pillar li {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.recovery .link {
+  color: var(--color-peach);
+}
+
+.banking .link {
+  color: var(--color-indigo);
+}
+
+@media (max-width: 980px) {
+  .pillars {
+    grid-template-columns: 1fr;
+  }
+}

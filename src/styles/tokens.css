@@ -1,0 +1,40 @@
+:root {
+  /* ===== Colors — locked, never substitute ===== */
+  --color-indigo: #5b4bff;
+  --color-indigo-deep: #4536e0;
+  --color-ink: #17152b;
+  --color-mint: #35d6a3;
+  --color-peach: #ff8a6b;
+  --color-lavender: #f1efff;
+  --color-white: #fcfbf8;
+  --color-cloud: #e7e5f0;
+  --color-slate: #686579;
+  --color-danger: #d64545;
+  --color-danger-bg: #fdeded;
+  --color-warn: #b8791f;
+  --color-warn-bg: #fdf3e4;
+  --color-success-text: #1e9c77;
+
+  /* ===== Typography ===== */
+  --font-display: 'Sora', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* ===== Spacing scale — uniform, use these only ===== */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+
+  /* ===== Radius ===== */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+
+  /* ===== Motion ===== */
+  --ease-out: cubic-bezier(0.19, 1, 0.22, 1);
+}

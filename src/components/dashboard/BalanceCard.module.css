@@ -1,0 +1,85 @@
+.card {
+  background: linear-gradient(155deg, var(--color-ink) 0%, #241f42 100%);
+  border-radius: 20px;
+  padding: var(--space-8);
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: var(--color-indigo);
+  opacity: 0.25;
+  filter: blur(70px);
+  top: -20%;
+  right: -10%;
+}
+
+.labelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+  position: relative;
+  z-index: 2;
+}
+
+.label {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.toggle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.08);
+  transition: background 0.2s var(--ease-out);
+}
+
+.toggle:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.amount {
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 700;
+  font-size: 38px;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-6);
+  position: relative;
+  z-index: 2;
+}
+
+.subRow {
+  display: flex;
+  gap: var(--space-6);
+  position: relative;
+  z-index: 2;
+}
+
+.subItem {
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.subItem strong {
+  display: block;
+  font-size: 15px;
+  color: var(--color-white);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.emptyText {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+}

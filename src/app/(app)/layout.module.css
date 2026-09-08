@@ -1,0 +1,22 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+  background: var(--color-lavender);
+}
+
+.mainCol {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex: 1;
+}
+
+@media (max-width: 980px) {
+  .main {
+    padding-bottom: 90px;
+  }
+}

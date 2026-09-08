@@ -1,0 +1,14 @@
+.strip {
+  padding: 52px 0;
+  border-top: 1px solid var(--color-cloud);
+  border-bottom: 1px solid var(--color-cloud);
+}
+
+.label {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-slate);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

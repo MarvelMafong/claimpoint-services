@@ -1,0 +1,85 @@
+.wrap {
+  position: relative;
+}
+
+.bellBtn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-lavender);
+  position: relative;
+}
+
+.dot {
+  position: absolute;
+  top: 7px;
+  right: 7px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-peach);
+  border: 2px solid var(--color-white);
+}
+
+.panel {
+  position: absolute;
+  top: 46px;
+  right: 0;
+  width: 320px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-cloud);
+  border-radius: 16px;
+  box-shadow: 0 20px 44px -18px rgba(23, 21, 43, 0.2);
+  z-index: 300;
+}
+
+.panelHead {
+  padding: 14px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  border-bottom: 1px solid var(--color-cloud);
+}
+
+.emptyState {
+  padding: 32px 18px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-slate);
+}
+
+.item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--color-cloud);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item:hover {
+  background: #fbfaff;
+}
+
+.item.unread {
+  background: var(--color-lavender);
+}
+
+.itemTitle {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.itemMessage {
+  font-size: 12px;
+  color: var(--color-slate);
+  line-height: 1.4;
+}

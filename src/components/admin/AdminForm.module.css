@@ -1,0 +1,207 @@
+.form {
+  max-width: 500px;
+}
+
+.successMsg {
+  padding: var(--space-3);
+  background: rgba(53, 214, 163, 0.12);
+  color: var(--color-success-text);
+  border-radius: 10px;
+  font-size: 12.5px;
+  margin-bottom: var(--space-4);
+}
+
+.errorMsg {
+  padding: var(--space-3);
+  background: var(--color-danger-bg);
+  color: #8a3e3e;
+  border-radius: 10px;
+  font-size: 12.5px;
+  margin-bottom: var(--space-4);
+}
+
+.field {
+  margin-bottom: var(--space-4);
+}
+
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1.5px solid var(--color-cloud);
+  border-radius: 10px;
+  font-size: 13.5px;
+  font-family: inherit;
+}
+
+.field textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.btnPrimary {
+  padding: 11px 24px;
+  border-radius: 10px;
+  background: var(--color-indigo);
+  color: var(--color-white);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.65;
+}
+
+.btnGhost {
+  padding: 11px 24px;
+  border-radius: 10px;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-cloud);
+  color: var(--color-ink);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.btnDanger {
+  padding: 11px 24px;
+  border-radius: 10px;
+  background: var(--color-danger);
+  color: var(--color-white);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.dangerCard {
+  background: var(--color-danger-bg);
+  border: 1px solid rgba(214, 69, 69, 0.3);
+  border-radius: 16px;
+  padding: var(--space-6);
+  margin-bottom: var(--space-8);
+  max-width: 560px;
+}
+
+.dangerCard h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #8a3e3e;
+  margin-bottom: var(--space-2);
+}
+
+.dangerDesc {
+  font-size: 13px;
+  color: #8a3e3e;
+  line-height: 1.55;
+  margin-bottom: var(--space-4);
+}
+
+.sectionTitle {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: var(--space-4);
+}
+
+.toggleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 400px;
+  margin-bottom: var(--space-8);
+}
+
+.toggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-white);
+  border: 1px solid var(--color-cloud);
+  border-radius: 12px;
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.switch {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: var(--color-cloud);
+  position: relative;
+  flex-shrink: 0;
+}
+
+.switch.on {
+  background: var(--color-indigo);
+}
+
+.switchKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--color-white);
+  transition: transform 0.2s var(--ease-out);
+}
+
+.switch.on .switchKnob {
+  transform: translateX(18px);
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(23, 21, 43, 0.5);
+  z-index: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalBox {
+  background: var(--color-white);
+  border-radius: 20px;
+  padding: var(--space-8);
+  max-width: 420px;
+  width: 100%;
+}
+
+.modalBox h3 {
+  font-size: 17px;
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+}
+
+.modalBox p {
+  font-size: 13.5px;
+  color: var(--color-slate);
+  line-height: 1.55;
+  margin-bottom: var(--space-4);
+}
+
+.confirmInput {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--color-cloud);
+  border-radius: 10px;
+  font-size: 13.5px;
+  margin-bottom: var(--space-4);
+}
+
+.modalActions {
+  display: flex;
+  gap: var(--space-3);
+}
+
+.modalActions button {
+  flex: 1;
+}

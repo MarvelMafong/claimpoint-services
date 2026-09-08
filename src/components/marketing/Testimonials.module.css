@@ -1,0 +1,17 @@
+.section { padding: 0 0 120px; }
+.inner { width: 90%; max-width: 1240px; margin: 0 auto; }
+
+.head { max-width: 620px; margin-bottom: 48px; }
+.eyebrow { font-size: 13px; font-weight: 700; color: var(--color-indigo); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 12px; display: block; }
+.head h2 { font-family: var(--font-sora), var(--font-display); font-weight: 700; font-size: clamp(26px, 3vw, 36px); letter-spacing: -0.015em; }
+
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+
+.card { background: var(--color-white); border: 1px solid var(--color-cloud); border-radius: 20px; padding: 28px; }
+.quote { font-size: 14.5px; line-height: 1.65; color: var(--color-ink); margin-bottom: 20px; }
+.name { font-size: 13.5px; font-weight: 600; }
+.location { font-size: 12px; color: var(--color-slate); margin-top: 2px; }
+
+@media (max-width: 980px) {
+  .grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,31 @@
+.section { padding: 0 0 120px; }
+.inner { width: 90%; max-width: 780px; margin: 0 auto; }
+.head { text-align: center; margin-bottom: 44px; }
+.eyebrow { font-size: 13px; font-weight: 700; color: var(--color-indigo); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 12px; display: block; }
+.head h2 { font-family: var(--font-sora), var(--font-display); font-weight: 700; font-size: clamp(26px, 3vw, 34px); }
+
+.list { border-top: 1px solid var(--color-cloud); }
+.item { border-bottom: 1px solid var(--color-cloud); }
+
+.question {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 22px 4px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink);
+}
+
+.chevron { flex-shrink: 0; transition: transform 0.2s var(--ease-out); }
+.chevron.open { transform: rotate(180deg); }
+
+.answer {
+  padding: 0 28px 22px 4px;
+  font-size: 14px;
+  color: var(--color-slate);
+  line-height: 1.6;
+}

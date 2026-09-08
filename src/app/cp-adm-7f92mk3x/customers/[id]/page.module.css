@@ -1,0 +1,23 @@
+.content { padding: 32px 36px; max-width: 1100px; }
+.backLink { font-size: 13px; font-weight: 600; color: var(--color-slate); margin-bottom: 20px; display: inline-block; }
+.head { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+.avatar { width: 52px; height: 52px; border-radius: 50%; background: var(--color-indigo); color: var(--color-white); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; }
+.head h1 { font-family: var(--font-sora), var(--font-display); font-weight: 700; font-size: 20px; }
+.sub { font-size: 12.5px; color: var(--color-slate); }
+
+.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+.card { background: var(--color-white); border: 1px solid var(--color-cloud); border-radius: 16px; padding: 20px; margin-bottom: 20px; }
+.card h3 { font-size: 12.5px; font-weight: 700; text-transform: uppercase; color: var(--color-slate); margin-bottom: 14px; }
+.row { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--color-cloud); font-size: 13px; }
+.row:last-child { border-bottom: none; }
+.muted { font-size: 13px; color: var(--color-slate); }
+
+.accountsGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.accountCard { border: 1px solid var(--color-cloud); border-radius: 14px; padding: 16px; }
+.accountType { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--color-indigo); margin-bottom: 6px; }
+.accountBalance { font-family: var(--font-sora), var(--font-display); font-weight: 700; font-size: 20px; margin-bottom: 8px; }
+.accountNumber { font-size: 11px; color: var(--color-slate); font-family: var(--font-mono, monospace); }
+.notReal { display: block; color: var(--color-warn); font-family: inherit; font-size: 9.5px; margin-top: 2px; }
+
+/* Append to your existing customer detail page.module.css */
+.avatarPhoto { width: 52px; height: 52px; border-radius: 50%; object-fit: cover; }

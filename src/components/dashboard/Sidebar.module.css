@@ -1,0 +1,143 @@
+.sidebar {
+  width: 264px;
+  flex-shrink: 0;
+  background: var(--color-white);
+  border-right: 1px solid var(--color-cloud);
+  padding: 26px 18px;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 700;
+  font-size: 17.5px;
+  padding: 0 10px 26px;
+}
+
+.logoImg {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.navGroup {
+  margin-bottom: 22px;
+}
+
+.navGroupLabel {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #a9a7b8;
+  padding: 0 10px;
+  margin-bottom: var(--space-2);
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 10px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-slate);
+  margin-bottom: 2px;
+  transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
+}
+
+.navItem:hover {
+  background: var(--color-lavender);
+  color: var(--color-ink);
+}
+
+.navItem.active {
+  background: var(--color-indigo);
+  color: var(--color-white);
+  font-weight: 600;
+}
+
+.sidebarFoot {
+  margin-top: auto;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-cloud);
+}
+
+.verifyNudge {
+  background: linear-gradient(155deg, var(--color-ink), #241f42);
+  border-radius: 14px;
+  padding: var(--space-4);
+  color: var(--color-white);
+  margin-bottom: 14px;
+}
+
+.verifyNudge h5 {
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.verifyNudge p {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.5;
+  margin-bottom: var(--space-3);
+}
+
+.verifyNudge a {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-mint);
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 10px;
+}
+
+.userAvatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--color-lavender);
+  color: var(--color-indigo);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-sora), var(--font-display);
+  flex-shrink: 0;
+}
+
+.userName {
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 980px) {
+  .sidebar {
+    display: none;
+  }
+}
+
+/* Append to your existing Sidebar.module.css */
+.logoutBtn {
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--color-lavender);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}

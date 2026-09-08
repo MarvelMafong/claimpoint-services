@@ -1,0 +1,16 @@
+.content { padding: 32px 36px; max-width: 700px; }
+.pageHead { margin-bottom: 28px; }
+.pageHead h1 { font-family: var(--font-sora), var(--font-display); font-weight: 700; font-size: 25px; margin-bottom: 4px; }
+.pageHead p { font-size: 14px; color: var(--color-slate); }
+
+.emptyState { text-align: center; padding: 56px 24px; background: var(--color-white); border: 1px solid var(--color-cloud); border-radius: 18px; }
+.emptyState h4 { font-family: var(--font-sora), var(--font-display); font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+.emptyState p { font-size: 14px; color: var(--color-slate); max-width: 340px; margin: 0 auto; line-height: 1.55; }
+
+.list { background: var(--color-white); border: 1px solid var(--color-cloud); border-radius: 16px; overflow: hidden; }
+.row { padding: 16px 20px; border-bottom: 1px solid var(--color-cloud); }
+.row:last-child { border-bottom: none; }
+.row.unread { background: var(--color-lavender); }
+.title { font-size: 13.5px; font-weight: 600; margin-bottom: 3px; }
+.message { font-size: 13px; color: var(--color-slate); margin-bottom: 4px; }
+.date { font-size: 11.5px; color: var(--color-slate); }

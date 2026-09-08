@@ -1,0 +1,124 @@
+.shell {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+}
+
+.brandPanel {
+  background-image: url('/images/auth-bg.jpg');
+  background-size: cover;
+  background-position: center;
+  color: var(--color-white);
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.brandPanel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(23, 21, 43, 0.25) 0%, rgba(23, 21, 43, 0.55) 100%);
+}
+
+.loginGlow::before,
+.signupGlow::before {
+  /* real photo now provides the color; keep only the darkening overlay
+     above for text contrast, no separate synthetic blobs needed */
+}
+.loginGlow::after,
+.signupGlow::after {
+  display: none;
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 700;
+  font-size: 18px;
+  position: relative;
+  z-index: 2;
+}
+
+.brandLogoImg {
+  width: 26px;
+  height: 26px;
+  background: var(--color-white);
+  border-radius: 7px;
+  padding: 3px;
+}
+
+.brandMid {
+  position: relative;
+  z-index: 2;
+  max-width: 400px;
+}
+
+.brandMid h2 {
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 700;
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-bottom: var(--space-4);
+}
+
+.brandMid p {
+  font-size: 15px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.brandFoot {
+  position: relative;
+  z-index: 2;
+  font-size: 12.5px;
+  color: rgba(255, 255, 255, 0.45);
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.formPanel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 40px;
+}
+
+.formWrap {
+  width: 100%;
+  max-width: 400px;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--color-slate);
+  margin-bottom: var(--space-8);
+}
+
+.backLink:hover {
+  color: var(--color-ink);
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .brandPanel {
+    display: none;
+  }
+  .formPanel {
+    padding: 40px 24px;
+    min-height: 100vh;
+    align-items: flex-start;
+  }
+}

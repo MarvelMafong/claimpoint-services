@@ -1,0 +1,159 @@
+.form {
+  max-width: 440px;
+}
+
+.form h1 {
+  font-family: var(--font-sora), var(--font-display);
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: var(--space-2);
+}
+
+.sub {
+  font-size: 14px;
+  color: var(--color-slate);
+  margin-bottom: var(--space-8);
+}
+
+.inlineError {
+  padding: var(--space-4);
+  background: var(--color-danger-bg);
+  color: #8a3e3e;
+  border-radius: 12px;
+  font-size: 13px;
+  margin-bottom: var(--space-6);
+}
+
+.field {
+  margin-bottom: var(--space-6);
+}
+
+.field label {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1.5px solid var(--color-cloud);
+  border-radius: 12px;
+  font-size: 14.5px;
+  font-family: inherit;
+  background: var(--color-white);
+}
+
+.btnPrimary {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  background: var(--color-indigo);
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.btnPrimary:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.btnGhost {
+  padding: 11px 20px;
+  border-radius: 12px;
+  background: var(--color-white);
+  border: 1.5px solid var(--color-cloud);
+  color: var(--color-ink);
+  font-size: 13.5px;
+  font-weight: 600;
+}
+
+.successCard {
+  max-width: 440px;
+  padding: var(--space-8);
+  background: var(--color-white);
+  border: 1px solid var(--color-cloud);
+  border-radius: 18px;
+  text-align: center;
+}
+
+.successCard h3 {
+  font-family: var(--font-sora), var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.successCard p {
+  font-size: 13.5px;
+  color: var(--color-slate);
+  margin-bottom: var(--space-4);
+}
+
+.sandboxNote {
+  padding: var(--space-4);
+  background: var(--color-lavender);
+  border-radius: 12px;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.restrictedBanner {
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6);
+  background: var(--color-warn-bg);
+  border-radius: 14px;
+}
+
+.restrictedBanner h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-warn);
+}
+
+.restrictedBanner p {
+  font-size: 13px;
+  color: #8a6420;
+}
+
+.restrictedBanner a {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-warn);
+}
+
+.toggleRow {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 20px;
+  background: var(--color-lavender);
+  padding: 4px;
+  border-radius: 12px;
+}
+
+.toggleBtn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-slate);
+}
+
+.toggleActive {
+  background: var(--color-white);
+  color: var(--color-ink);
+  box-shadow: 0 2px 6px rgba(23, 21, 43, 0.08);
+}
+
+.pendingNote {
+  font-size: 12.5px;
+  color: var(--color-slate);
+  line-height: 1.5;
+}
