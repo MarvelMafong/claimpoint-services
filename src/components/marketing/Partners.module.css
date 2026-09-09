@@ -67,3 +67,9 @@
     animation: none;
   }
 }
+
+.realLogo {
+  max-height: 32px;
+  max-width: 100px;
+  object-fit: contain;
+}
