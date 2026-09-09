@@ -43,6 +43,14 @@ export default function PartnersManager({ initialPartners }) {
       return;
     }
 
+    // Previously relied only on router.refresh() to update the list —
+    // that refetches the server component, but a client component's own
+    // useState doesn't automatically pick up new props from that, so
+    // the list stayed empty even though the save genuinely succeeded.
+    setPartners((prev) => [...prev, {
+      ...json.partner,
+      logoUrl: `https://ldmbyjjkwadvqvakddqq.supabase.co/storage/v1/object/public/partner-logos/${json.partner.logo_path}`,
+    }]);
     router.refresh();
     setName('');
     setLogoFile(null);
