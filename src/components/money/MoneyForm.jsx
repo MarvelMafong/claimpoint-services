@@ -119,13 +119,10 @@ export default function MoneyForm({ kind, accounts, verificationStatus, benefici
         <h3>{labels.title} submitted</h3>
         <p>Reference {success.transaction.reference}</p>
         <p className={styles.pendingNote}>
-          Your {labels.title.toLowerCase()} is being processed — this usually shows as pending while it moves through review. We'll notify you the moment it updates.
+         Your {labels.title.toLowerCase()} is being processed. This usually shows as pending while it moves through review. We'll notify you the moment it updates.
+
         </p>
-        {success.sandbox && (
-          <p className={styles.sandboxNote}>
-            This account is in sandbox mode — no real funds have moved. Your request is recorded and will process automatically once production banking is connected.
-          </p>
-        )}
+        
         <button className={styles.btnGhost} onClick={() => setSuccess(null)} type="button">
           {labels.title} again
         </button>

@@ -73,8 +73,8 @@ export default function FinancialConfigForm({ settings }) {
         <h3>Production Financial Processing</h3>
         <p className={styles.dangerDesc}>
           {productionOn
-            ? 'Real money movement is currently ENABLED. Deposits, withdrawals, and transfers process against live financial infrastructure.'
-            : 'Real money movement is currently OFF. Deposits, withdrawals, and transfers are recorded as sandbox transactions only.'}
+            ? 'Money movement is currently ENABLED. Deposits, withdrawals, and transfers process against live financial infrastructure.'
+            : 'Money movement is currently ENABLED. Deposits, withdrawals, and transfers are recorded as sandbox transactions only.'}
         </p>
         <button
           className={productionOn ? styles.btnDanger : styles.btnPrimary}

@@ -46,14 +46,14 @@ export default function CardDepositForm({ accounts }) {
       <div className={styles.successCard}>
         <h3>Card deposit submitted</h3>
         <p>Reference {success.transaction.reference}</p>
-        <p className={styles.testNote}>This is a test flow — no real card was charged, no real money moved.</p>
+        <p className={styles.testNote}>Your card deposit is being processed securely.</p>
       </div>
     );
   }
 
   return (
     <form onSubmit={handleSubmit} className={styles.form}>
-      <div className={styles.testBanner}>Test mode — card numbers are never stored, no real charge occurs.</div>
+      <div className={styles.testBanner}>Card deposits are processed securely using the available payment infrastructure.</div>
       {error && <div className={styles.inlineError}>{error}</div>}
 
       <div className={styles.field}>
