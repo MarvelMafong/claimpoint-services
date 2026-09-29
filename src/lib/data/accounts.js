@@ -1,5 +1,14 @@
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 
+// The Standard account type has been written as both 'standard' and
+// 'standard_account' in different parts of the codebase. Treat both as
+// the Standard account everywhere so no check silently misses it.
+export const STANDARD_ACCOUNT_TYPES = ['standard', 'standard_account'];
+
+export function isStandardAccount(account) {
+  return STANDARD_ACCOUNT_TYPES.includes(account?.account_type);
+}
+
 // Returns all financial accounts/products belonging to the current user.
 // RLS on the accounts table (see supabase-accounts.sql) restricts this to
 // rows where user_id = auth.uid() automatically — no manual filtering
@@ -23,6 +32,6 @@ export async function getAccounts() {
 export async function getPrimaryAccount() {
   const { accounts, error } = await getAccounts();
   if (error) return { account: null, error };
-  const primary = accounts.find((a) => a.account_type === 'standard') ?? accounts[0] ?? null;
+  const primary = accounts.find(isStandardAccount) ?? accounts[0] ?? null;
   return { account: primary, error: null };
 }

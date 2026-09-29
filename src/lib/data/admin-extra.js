@@ -49,10 +49,23 @@ export async function getVerificationDetail(sessionId) {
 
   if (error) return { session: null, documents: [], internalReview: null, error: error.message };
 
-  const { data: documents } = await supabase
+  let { data: documents } = await supabase
     .from('verification_documents')
     .select('*')
     .eq('session_id', sessionId);
+
+  // Sessions submitted before document linking was fixed have their files
+  // stranded with session_id = null — fall back to the customer's unlinked
+  // uploads so the reviewer still sees them instead of "No documents found".
+  if (!documents?.length && session.user_id) {
+    const { data: unlinked } = await supabase
+      .from('verification_documents')
+      .select('*')
+      .eq('user_id', session.user_id)
+      .is('session_id', null)
+      .order('created_at', { ascending: false });
+    documents = (unlinked ?? []).map((d) => ({ ...d, unlinked: true }));
+  }
 
   // Signed URLs, short-lived (5 min) — the bucket is private by design, so
   // this is the only way an admin can actually view the document, and it

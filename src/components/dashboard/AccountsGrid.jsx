@@ -60,7 +60,7 @@ export default function AccountsGrid({ accounts }) {
             <div style={{ paddingTop: 16, borderTop: '1px solid var(--color-cloud)', fontSize: 12.5, color: 'var(--color-slate)' }}>
               {account.masked_number ?? (account.apy ? `${account.apy}% APY` : '')}
             </div>
-            {account.account_type !== 'standard_account' && account.status !== 'closed' && (
+            {!['standard', 'standard_account'].includes(account.account_type) && account.status !== 'closed' && (
               <button
                 onClick={() => handleClose(account)}
                 disabled={closingId === account.id}

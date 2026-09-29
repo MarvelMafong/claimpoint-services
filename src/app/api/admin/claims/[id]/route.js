@@ -6,11 +6,11 @@ export async function GET(request, { params }) {
   await requireAdmin();
   const { id } = await params;
 
-  const { claim, evidence, internalReview, error } = await getClaimDetail(id);
+  const { claim, evidence, comments, internalReview, error } = await getClaimDetail(id);
 
   if (error || !claim) {
     return NextResponse.json({ error: error ?? 'Claim not found' }, { status: 404 });
   }
 
-  return NextResponse.json({ claim, evidence, internalReview }, { status: 200 });
+  return NextResponse.json({ claim, evidence, comments, internalReview }, { status: 200 });
 }

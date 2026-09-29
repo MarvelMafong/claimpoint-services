@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import StatusBadge from '@/components/ui/StatusBadge';
+import AdminEvidenceAndComments from './AdminEvidenceAndComments';
 import styles from './ClaimsWorkspace.module.css';
 
 const statusOptions = [
@@ -10,7 +11,7 @@ const statusOptions = [
 ];
 
 export default function ClaimsWorkspace({ initialClaims, loadError }) {
-  const [claims] = useState(initialClaims);
+  const [claims, setClaims] = useState(initialClaims);
   const [selectedId, setSelectedId] = useState(initialClaims[0]?.id ?? null);
   const [detail, setDetail] = useState(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
@@ -18,6 +19,23 @@ export default function ClaimsWorkspace({ initialClaims, loadError }) {
   const [notes, setNotes] = useState('');
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState(null);
+
+  // Load the first claim's detail on mount — previously the first row
+  // was highlighted but the detail panel stayed empty until clicked.
+  useEffect(() => {
+    if (initialClaims[0]?.id) selectClaim(initialClaims[0].id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  async function refreshDetail() {
+    if (!selectedId) return;
+    try {
+      const res = await fetch(`/api/admin/claims/${selectedId}`);
+      if (res.ok) setDetail(await res.json());
+    } catch {
+      // keep showing the previous detail
+    }
+  }
 
   async function selectClaim(id) {
     setSelectedId(id);
@@ -52,6 +70,7 @@ export default function ClaimsWorkspace({ initialClaims, loadError }) {
       });
       if (res.ok) {
         setSaveMessage('Status updated. Customer notified.');
+        setClaims((prev) => prev.map((c) => (c.id === selectedId ? { ...c, status } : c)));
       } else {
         setSaveMessage('Something went wrong saving this update.');
       }
@@ -115,16 +134,12 @@ export default function ClaimsWorkspace({ initialClaims, loadError }) {
                   ))}
                 </div>
 
-                <div className={styles.card}>
-                  <h3>Evidence ({detail.evidence.length})</h3>
-                  {detail.evidence.length === 0 ? (
-                    <p className={styles.noEvidence}>No evidence files attached.</p>
-                  ) : (
-                    detail.evidence.map((f) => (
-                      <div className={styles.evidenceRow} key={f.id}>{f.file_name}</div>
-                    ))
-                  )}
-                </div>
+                <AdminEvidenceAndComments
+                  claimId={selectedId}
+                  evidence={detail.evidence ?? []}
+                  comments={detail.comments ?? []}
+                  onChanged={refreshDetail}
+                />
               </div>
 
               <div>

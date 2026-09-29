@@ -69,10 +69,42 @@ export async function getClaimDetail(claimId) {
     return { claim: null, evidence: [], internalReview: null, error: error.message };
   }
 
-  const { data: evidence } = await supabase
+  let { data: evidence } = await supabase
     .from('claim_evidence')
     .select('*')
     .eq('claim_id', claimId);
+
+  // Claims filed before evidence linking was fixed can have their files
+  // stranded with claim_id = null. Show the customer's unlinked uploads
+  // from before this claim was filed so the reviewer can still see them.
+  if (!evidence?.length && claim.user_id) {
+    const { data: unlinked } = await supabase
+      .from('claim_evidence')
+      .select('*')
+      .eq('user_id', claim.user_id)
+      .is('claim_id', null)
+      .lte('created_at', claim.created_at);
+    evidence = (unlinked ?? []).map((e) => ({ ...e, unlinked: true }));
+  }
+
+  // The claim-evidence bucket is private, so admins can only view files
+  // through short-lived (5 min) signed URLs generated with the service role.
+  const evidenceWithUrls = await Promise.all(
+    (evidence ?? []).map(async (item) => {
+      if (!item.storage_path) return { ...item, signedUrl: null };
+      const { data: signed, error: signError } = await supabase.storage
+        .from('claim-evidence')
+        .createSignedUrl(item.storage_path, 300);
+      if (signError) console.error('Evidence signed URL error:', signError.message);
+      return { ...item, signedUrl: signed?.signedUrl ?? null };
+    })
+  );
+
+  const { data: comments } = await supabase
+    .from('claim_comments')
+    .select('*')
+    .eq('claim_id', claimId)
+    .order('created_at', { ascending: true });
 
   const { data: internalReview } = await supabase
     .from('claim_internal_review')
@@ -82,5 +114,5 @@ export async function getClaimDetail(claimId) {
     .limit(1)
     .maybeSingle();
 
-  return { claim, evidence: evidence ?? [], internalReview, error: null };
+  return { claim, evidence: evidenceWithUrls, comments: comments ?? [], internalReview, error: null };
 }

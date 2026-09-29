@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { getSupabaseServerClient } from '@/lib/supabase/server';
+import { getSupabaseServerClient, getSupabaseServiceClient } from '@/lib/supabase/server';
 
 // Customer can only cancel early — once a case is actively being worked
 // (recovered, partially_recovered, not_recovered, closed), cancelling
@@ -30,13 +30,21 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: 'This claim is already being actively worked and can no longer be cancelled yourself. Contact support if you need to stop it.' }, { status: 400 });
   }
 
-  const { error } = await supabase
+  // Ownership was verified above with the customer's RLS-scoped client.
+  // The write itself uses the service client: customers have no general
+  // UPDATE right on recovery_cases (they must not be able to set their own
+  // status), so an RLS-scoped update would silently change zero rows.
+  const service = getSupabaseServiceClient();
+  const { data: updated, error } = await service
     .from('recovery_cases')
     .update({ status: 'closed' })
     .eq('id', id)
-    .eq('user_id', user.id);
+    .eq('user_id', user.id)
+    .in('status', CANCELLABLE_STATUSES)
+    .select('id');
 
-  if (error) {
+  if (error || !updated?.length) {
+    console.error('Claim cancel error:', error?.message ?? 'no rows updated');
     return NextResponse.json({ error: 'Could not cancel this claim. Please try again.' }, { status: 500 });
   }
 

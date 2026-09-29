@@ -3,9 +3,12 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import styles from './ClaimsIntakeFlow.module.css';
 
-const DRAFT_KEY = 'claimpoint_claim_draft';
+// Legacy unscoped key — drafts are now stored per user so one customer's
+// draft never shows up for another account on the same browser.
+const LEGACY_DRAFT_KEY = 'claimpoint_claim_draft';
 
 const stepOrder = {
   unauthorized: ['category', 'details', 'evidence', 'review'],
@@ -35,8 +38,23 @@ export default function ClaimsIntakeFlow() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [agreed, setAgreed] = useState(false);
+  const [userId, setUserId] = useState(null);
+  // Don't write the draft back until it has been loaded — otherwise the
+  // initial empty state can overwrite a saved draft before it's restored.
+  const [hydrated, setHydrated] = useState(false);
+
+  const DRAFT_KEY = userId ? `claimpoint_claim_draft_${userId}` : null;
 
   useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    supabase.auth.getUser().then(({ data }) => {
+      setUserId(data?.user?.id ?? null);
+    });
+    localStorage.removeItem(LEGACY_DRAFT_KEY);
+  }, []);
+
+  useEffect(() => {
+    if (!DRAFT_KEY) return;
     const saved = localStorage.getItem(DRAFT_KEY);
     if (saved) {
       try {
@@ -49,11 +67,13 @@ export default function ClaimsIntakeFlow() {
         // corrupted draft — ignore and start fresh
       }
     }
-  }, []);
+    setHydrated(true);
+  }, [DRAFT_KEY]);
 
   useEffect(() => {
+    if (!DRAFT_KEY || !hydrated) return;
     localStorage.setItem(DRAFT_KEY, JSON.stringify({ category, stepKey, details, evidenceFiles }));
-  }, [category, stepKey, details, evidenceFiles]);
+  }, [DRAFT_KEY, hydrated, category, stepKey, details, evidenceFiles]);
 
   const order = stepOrder[category] ?? stepOrder.other;
   const stepIndex = order.indexOf(stepKey);
@@ -122,7 +142,7 @@ export default function ClaimsIntakeFlow() {
         setSubmitting(false);
         return;
       }
-      localStorage.removeItem(DRAFT_KEY);
+      if (DRAFT_KEY) localStorage.removeItem(DRAFT_KEY);
       router.push(`/claims/${json.claim.id}?submitted=true`);
     } catch {
       setError('Something went wrong. Please check your connection and try again.');
@@ -130,9 +150,21 @@ export default function ClaimsIntakeFlow() {
     }
   }
 
-  function handleCancel() {
-    if (confirm('Cancel this claim draft? Your progress will be lost. This cannot be undone.')) {
-      localStorage.removeItem(DRAFT_KEY);
+  async function handleCancel() {
+    if (confirm('Cancel this claim draft? Your progress and uploaded files will be deleted. This cannot be undone.')) {
+      if (DRAFT_KEY) localStorage.removeItem(DRAFT_KEY);
+      const ids = evidenceFiles.map((f) => f.id).filter(Boolean);
+      if (ids.length) {
+        try {
+          await fetch('/api/claims/evidence', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ids }),
+          });
+        } catch {
+          // draft is already cleared locally; stray files are harmless
+        }
+      }
       router.push('/dashboard');
     }
   }

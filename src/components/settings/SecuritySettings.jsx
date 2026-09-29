@@ -10,11 +10,9 @@ export default function SecuritySettings({ loginHistory = [] }) {
   const [saving, setSaving] = useState(false);
   const [message, setMessage] = useState(null);
 
-  // Visual only, matches the rest of the sandbox pattern — no real bank
-  // partner means no real 2FA provider connected yet. This demonstrates
-  // exactly what the toggle and setup steps will look like once one is.
-  const [twoFaEnabled, setTwoFaEnabled] = useState(false);
-  const [showTwoFaSetup, setShowTwoFaSetup] = useState(false);
+  // No 2FA provider is connected yet, so the control is shown disabled with
+  // a clear disclosure. It previously let customers "enable" 2FA and showed
+  // "Enabled" even though nothing protected their account.
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -45,14 +43,6 @@ export default function SecuritySettings({ loginHistory = [] }) {
     setSaving(false);
   }
 
-  function toggleTwoFa() {
-    if (!twoFaEnabled) {
-      setShowTwoFaSetup(true);
-    } else {
-      setTwoFaEnabled(false);
-    }
-  }
-
   return (
     <div>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -79,43 +69,37 @@ export default function SecuritySettings({ loginHistory = [] }) {
 
       <div style={{ marginTop: 40 }}>
         <h3 className={styles.sectionTitle}>Two-factor authentication</h3>
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, background: 'var(--color-white)', border: '1px solid var(--color-cloud)', borderRadius: 14 }}>
+        <div
+          role="note"
+          style={{ marginBottom: 12, padding: '12px 14px', background: 'var(--color-lavender)', borderRadius: 12, fontSize: 12.5, color: 'var(--color-slate)' }}
+        >
+          <strong style={{ color: 'var(--color-ink, inherit)' }}>Not yet available.</strong>{' '}
+          Two-factor authentication is not functional yet and cannot be turned on. Your account is currently
+          protected by your password only — use a strong, unique password. We&apos;ll notify you when 2FA launches.
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, background: 'var(--color-white)', border: '1px solid var(--color-cloud)', borderRadius: 14, opacity: 0.6 }}>
           <div>
             <div style={{ fontSize: 13.5, fontWeight: 600, marginBottom: 2 }}>SMS authentication</div>
-            <div style={{ fontSize: 12, color: 'var(--color-slate)' }}>{twoFaEnabled ? 'Enabled' : 'Not enabled'}</div>
+            <div style={{ fontSize: 12, color: 'var(--color-slate)' }}>Not enabled · Coming soon</div>
           </div>
           <button
             type="button"
-            onClick={toggleTwoFa}
+            disabled
+            aria-disabled="true"
+            aria-label="SMS two-factor authentication (not yet available)"
+            title="Two-factor authentication is not yet available"
             style={{
               width: 44, height: 24, borderRadius: 999,
-              background: twoFaEnabled ? 'var(--color-indigo)' : 'var(--color-cloud)',
-              position: 'relative', transition: 'background 0.2s',
+              background: 'var(--color-cloud)',
+              position: 'relative', cursor: 'not-allowed',
             }}
           >
             <span style={{
-              position: 'absolute', top: 2, left: twoFaEnabled ? 22 : 2,
+              position: 'absolute', top: 2, left: 2,
               width: 20, height: 20, borderRadius: '50%', background: 'var(--color-white)',
-              transition: 'left 0.2s',
             }} />
           </button>
         </div>
-
-        {showTwoFaSetup && (
-          <div style={{ marginTop: 14, padding: 20, background: 'var(--color-lavender)', borderRadius: 14 }}>
-            <p style={{ fontSize: 12.5, color: 'var(--color-slate)', marginBottom: 14 }}>
-              Step 1 of 2: Enter your phone number to receive a verification code.
-            </p>
-            <input type="tel" placeholder="Phone number" style={{ width: '100%', padding: 12, borderRadius: 10, border: '1.5px solid var(--color-cloud)', marginBottom: 12, fontSize: 13.5 }} />
-            <button
-              type="button"
-              onClick={() => { setTwoFaEnabled(true); setShowTwoFaSetup(false); }}
-              style={{ width: '100%', padding: 12, borderRadius: 10, background: 'var(--color-indigo)', color: 'var(--color-white)', fontSize: 13.5, fontWeight: 600 }}
-            >
-              Send verification code
-            </button>
-          </div>
-        )}
       </div>
 
       <h3 className={styles.sectionTitle} style={{ marginTop: 40 }}>Recent logins</h3>

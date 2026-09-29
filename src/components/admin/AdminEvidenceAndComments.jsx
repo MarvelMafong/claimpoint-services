@@ -1,18 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import styles from './AdminEvidenceAndComments.module.css';
 
-export default function AdminEvidenceAndComments({ claimId, evidence, comments }) {
-  const router = useRouter();
+const IMAGE_EXT = /.(jpe?g|png|gif|webp|heic)$/i;
+
+export default function AdminEvidenceAndComments({ claimId, evidence, comments, onChanged }) {
   const [message, setMessage] = useState('');
   const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(null);
 
   async function sendComment(e) {
     e.preventDefault();
     if (!message.trim()) return;
     setSending(true);
+    setSendError(null);
     const res = await fetch(`/api/admin/claims/${claimId}/comments`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -20,7 +22,9 @@ export default function AdminEvidenceAndComments({ claimId, evidence, comments }
     });
     if (res.ok) {
       setMessage('');
-      router.refresh();
+      onChanged?.();
+    } else {
+      setSendError('Could not send this update. Please try again.');
     }
     setSending(false);
   }
@@ -35,12 +39,16 @@ export default function AdminEvidenceAndComments({ claimId, evidence, comments }
           <div className={styles.grid}>
             {evidence.map((item) => (
               <a key={item.id} href={item.signedUrl ?? '#'} target="_blank" rel="noopener noreferrer" className={styles.evidenceCard}>
-                {item.signedUrl ? (
+                {item.signedUrl && IMAGE_EXT.test(item.file_name ?? item.storage_path ?? '') ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={item.signedUrl} alt={item.file_name} className={styles.evidenceImg} />
                 ) : (
-                  <div className={styles.evidenceImgFallback}>{item.file_name}</div>
+                  <div className={styles.evidenceImgFallback}>
+                    {item.file_name}
+                    {!item.signedUrl && ' (file unavailable)'}
+                  </div>
                 )}
+                {item.unlinked && <div className={styles.linkExpiry}>Not linked to this claim — matched by customer</div>}
               </a>
             ))}
           </div>
@@ -64,6 +72,7 @@ export default function AdminEvidenceAndComments({ claimId, evidence, comments }
             rows={3}
             disabled={sending}
           />
+          {sendError && <p className={styles.muted}>{sendError}</p>}
           <button type="submit" disabled={sending || !message.trim()}>{sending ? 'Sending…' : 'Send update'}</button>
         </form>
       </div>

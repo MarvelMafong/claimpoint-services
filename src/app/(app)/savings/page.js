@@ -1,6 +1,6 @@
 import ProductCatalog from '@/components/savings/ProductCatalog';
 import { getActiveProducts } from '@/lib/data/products';
-import { getAccounts } from '@/lib/data/accounts';
+import { getAccounts, isStandardAccount } from '@/lib/data/accounts';
 import styles from './page.module.css';
 
 export const metadata = { title: 'Savings & CDs — ClaimPoint Solutions' };
@@ -8,8 +8,9 @@ export const metadata = { title: 'Savings & CDs — ClaimPoint Solutions' };
 export default async function SavingsPage() {
   const [{ products }, { accounts }] = await Promise.all([getActiveProducts(), getAccounts()]);
 
-  const standardAccounts = accounts.filter((a) => a.account_type === 'standard');
-  const ownedProducts = accounts.filter((a) => a.account_type !== 'standard');
+  const openAccounts = accounts.filter((a) => a.status !== 'closed');
+  const standardAccounts = openAccounts.filter(isStandardAccount);
+  const ownedProducts = openAccounts.filter((a) => !isStandardAccount(a));
 
   return (
     <div className={styles.content}>

@@ -38,12 +38,18 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Could not submit claim. Please try again.' }, { status: 500 });
   }
 
+  // Link uploaded evidence via the service client, scoped to this user's
+  // own unlinked rows — if claim_evidence has no customer UPDATE policy an
+  // RLS-scoped update silently links nothing and the admin sees no files.
+  const service = getSupabaseServiceClient();
   if (evidenceFileIds?.length) {
-    await supabase
+    const { error: linkError } = await service
       .from('claim_evidence')
       .update({ claim_id: claim.id })
       .in('id', evidenceFileIds)
-      .eq('user_id', user.id);
+      .eq('user_id', user.id)
+      .is('claim_id', null);
+    if (linkError) console.error('Evidence link error:', linkError.message);
   }
 
   const { data: profile } = await supabase.from('profiles').select('first_name').eq('id', user.id).single();
@@ -55,7 +61,6 @@ export async function POST(request) {
 
   // Admin notification — service client since admin_notifications has no
   // insert policy for regular users by design.
-  const service = getSupabaseServiceClient();
   await service.from('admin_notifications').insert({
     type: 'claim',
     title: 'New claim submitted',

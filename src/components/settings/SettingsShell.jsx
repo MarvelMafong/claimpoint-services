@@ -4,12 +4,14 @@ import { useState } from 'react';
 import ProfileSettings from '@/components/settings/ProfileSettings';
 import SecuritySettings from '@/components/settings/SecuritySettings';
 import NotificationSettings from '@/components/settings/NotificationSettings';
+import DataAndPrivacy from '@/components/settings/DataAndPrivacy';
 import styles from './SettingsShell.module.css';
 
 const tabs = [
   { id: 'profile', label: 'Profile' },
   { id: 'security', label: 'Security' },
   { id: 'notifications', label: 'Notifications' },
+  { id: 'privacy', label: 'Data & privacy' },
 ];
 
 export default function SettingsShell({ profile, loginHistory }) {
@@ -33,6 +35,7 @@ export default function SettingsShell({ profile, loginHistory }) {
       {activeTab === 'profile' && <ProfileSettings profile={profile} />}
       {activeTab === 'security' && <SecuritySettings loginHistory={loginHistory} />}
       {activeTab === 'notifications' && <NotificationSettings profile={profile} />}
+      {activeTab === 'privacy' && <DataAndPrivacy />}
     </div>
   );
 }

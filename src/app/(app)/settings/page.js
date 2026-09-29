@@ -12,7 +12,7 @@ export default async function SettingsPage() {
     <div className={styles.content}>
       <div className={styles.pageHead}>
         <h1>Settings</h1>
-        <p>Manage your profile, security, and notification preferences.</p>
+        <p>Manage your profile, security, notification preferences, and your data.</p>
       </div>
       <SettingsShell profile={profile} loginHistory={history} />
     </div>

@@ -32,6 +32,9 @@ export default function VerificationFlow() {
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  // Don't write the draft back until it has been loaded — otherwise the
+  // initial empty state can overwrite a saved draft before it's restored.
+  const [hydrated, setHydrated] = useState(false);
 
   const draftKey = userId ? `claimpoint_verification_draft_${userId}` : null;
 
@@ -76,12 +79,13 @@ export default function VerificationFlow() {
         // corrupted draft — start fresh
       }
     }
+    setHydrated(true);
   }, [draftKey]);
 
   useEffect(() => {
-    if (!draftKey) return;
+    if (!draftKey || !hydrated) return;
     localStorage.setItem(draftKey, JSON.stringify({ stepKey, personal, idType, documents }));
-  }, [draftKey, stepKey, personal, idType, documents]);
+  }, [draftKey, hydrated, stepKey, personal, idType, documents]);
 
   const selectedIdOption = idOptions.find((o) => o.id === idType);
   const hasBack = selectedIdOption?.hasBack ?? true;
@@ -177,9 +181,22 @@ export default function VerificationFlow() {
     }
   }
 
-  function handleCancel() {
+  async function handleCancel() {
     if (confirm('Cancel this verification draft? Your progress and uploaded documents will be deleted. This cannot be undone.')) {
       if (draftKey) localStorage.removeItem(draftKey);
+      // The confirm text promises deletion — actually delete the uploads.
+      const ids = Object.values(documents).map((d) => d?.id).filter(Boolean);
+      if (ids.length) {
+        try {
+          await fetch('/api/verification/documents', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ids }),
+          });
+        } catch {
+          // draft is already cleared locally; stray files are harmless
+        }
+      }
       router.push('/dashboard');
     }
   }
