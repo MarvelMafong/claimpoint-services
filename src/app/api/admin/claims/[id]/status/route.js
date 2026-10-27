@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/auth/admin';
 import { getSupabaseServiceClient } from '@/lib/supabase/server';
 import { createNotification } from '@/lib/notifications/create';
-import { sendEmail } from '@/lib/email/client';
+import { deliverEmail } from '@/lib/email/deliver';
 import { emailTemplates } from '@/lib/email/templates';
 
 export async function PATCH(request, { params }) {
@@ -60,7 +60,7 @@ export async function PATCH(request, { params }) {
     const { data: { user: customer } } = await supabase.auth.admin.getUserById(existing.user_id);
     if (customer?.email) {
       const { subject, html } = emailTemplates.claimStatusChanged(profile?.first_name ?? 'there', existing.reference, status);
-      await sendEmail({ to: customer.email, subject, html });
+      await deliverEmail({ userId: existing.user_id, to: customer.email, category: 'claims', subject, html });
     }
   }
 

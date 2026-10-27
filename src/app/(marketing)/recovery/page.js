@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from '../marketing-page.module.css';
 
-export const metadata = { title: 'Recovery & Claims — ClaimPoint Solutions' };
+export const metadata = { title: 'Recovery & Claims - ClaimPoint Solutions' };
 
 export default function RecoveryPage() {
   return (
@@ -22,7 +22,7 @@ export default function RecoveryPage() {
         </p>
 
         <h2>Fees</h2>
-        <p>No fee unless we recover funds. Where a success-based fee applies, you&apos;ll see the exact terms before agreeing to proceed — never charged upfront.</p>
+        <p>No fee unless we recover funds. Where a success-based fee applies, you&apos;ll see the exact terms before agreeing to proceed, never charged upfront.</p>
 
         <h2>Getting started</h2>
         <p>

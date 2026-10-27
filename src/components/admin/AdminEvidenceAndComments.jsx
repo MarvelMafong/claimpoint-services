@@ -48,12 +48,12 @@ export default function AdminEvidenceAndComments({ claimId, evidence, comments, 
                     {!item.signedUrl && ' (file unavailable)'}
                   </div>
                 )}
-                {item.unlinked && <div className={styles.linkExpiry}>Not linked to this claim — matched by customer</div>}
+                {item.unlinked && <div className={styles.linkExpiry}>Not linked to this claim, matched by customer</div>}
               </a>
             ))}
           </div>
         )}
-        <p className={styles.linkExpiry}>Links expire in 5 minutes — reload this page to refresh them.</p>
+        <p className={styles.linkExpiry}>Links expire in 5 minutes. Reload this page to refresh them.</p>
       </div>
 
       <div className={styles.card}>

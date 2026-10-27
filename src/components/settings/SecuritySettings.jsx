@@ -75,7 +75,7 @@ export default function SecuritySettings({ loginHistory = [] }) {
         >
           <strong style={{ color: 'var(--color-ink, inherit)' }}>Not yet available.</strong>{' '}
           Two-factor authentication is not functional yet and cannot be turned on. Your account is currently
-          protected by your password only — use a strong, unique password. We&apos;ll notify you when 2FA launches.
+          protected by your password only. Use a strong, unique password. We&apos;ll notify you when 2FA launches.
         </div>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: 16, background: 'var(--color-white)', border: '1px solid var(--color-cloud)', borderRadius: 14, opacity: 0.6 }}>
           <div>

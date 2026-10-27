@@ -13,6 +13,7 @@ const REQUIRED_ENV = [
 export async function GET() {
   const checks = {
     env: Object.fromEntries(REQUIRED_ENV.map((k) => [k, !!process.env[k]])),
+    emailConfigured: !!process.env.RESEND_API_KEY,
     supabaseAuth: false,
     database: false,
   };

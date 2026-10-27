@@ -287,7 +287,7 @@ export default function ClaimsIntakeFlow() {
             </p>
             <div className={styles.reviewCard}>
               <div className={styles.reviewRow}><span>Category</span><span>{categories.find((c) => c.id === category)?.label}</span></div>
-              <div className={styles.reviewRow}><span>Amount</span><span>{details.amount || '—'}</span></div>
+              <div className={styles.reviewRow}><span>Amount</span><span>{details.amount || '-'}</span></div>
               <div className={styles.reviewRow}><span>Files attached</span><span>{evidenceFiles.length}</span></div>
             </div>
             <div className={styles.feeBanner}>

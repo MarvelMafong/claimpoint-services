@@ -8,7 +8,7 @@ import styles from './VerificationQueue.module.css';
 // Turns raw database values like "no_anomaly_detected" into readable
 // text — no underscores, no raw enum leaking into the admin UI.
 function humanize(value) {
-  if (!value) return '—';
+  if (!value) return '-';
   return value.charAt(0).toUpperCase() + value.slice(1).replace(/_/g, ' ');
 }
 
@@ -58,7 +58,7 @@ export default function VerificationQueue({ sessions }) {
 
   function submitReason() {
     if (!reasonText.trim()) {
-      alert('Please enter a reason — the customer sees this, and a blank reason isn\'t useful to them.');
+      alert('Please enter a reason. The customer sees this, and a blank reason isn\'t useful to them.');
       return;
     }
     updateStatus(reasonPrompt, reasonText.trim());
@@ -107,7 +107,7 @@ export default function VerificationQueue({ sessions }) {
             <div className={styles.detailHead}>
               <h2>{detail.session.profiles?.first_name} {detail.session.profiles?.last_name}</h2>
               <div className={styles.detailSub}>
-                {detail.session.legal_first_name} {detail.session.legal_last_name} · {detail.session.id_type} · DOB {detail.session.date_of_birth ?? '—'}
+                {detail.session.legal_first_name} {detail.session.legal_last_name} · {detail.session.id_type} · DOB {detail.session.date_of_birth ?? '-'}
               </div>
               <div className={styles.detailSub}>{detail.session.address}, {detail.session.city} {detail.session.zip_code}</div>
             </div>
@@ -143,7 +143,7 @@ export default function VerificationQueue({ sessions }) {
               <div>
                 {detail.internalReview && (
                   <div className={styles.internalCard}>
-                    <div className={styles.internalLabel}>Internal only — not visible to customer</div>
+                    <div className={styles.internalLabel}>Internal only, not visible to customer</div>
                     <div className={styles.internalRow}><span>Automated check</span><span>{humanize(detail.internalReview.automated_check_result)}</span></div>
                     <div className={styles.internalRow}><span>Risk indicator</span><span>{humanize(detail.internalReview.risk_indicator)}</span></div>
                     <p className={styles.internalNote}>{detail.internalReview.reviewer_notes}</p>
@@ -154,7 +154,7 @@ export default function VerificationQueue({ sessions }) {
                 )}
                 {!detail.internalReview && (
                   <div className={styles.internalCard}>
-                    <div className={styles.internalLabel}>Internal only — not visible to customer</div>
+                    <div className={styles.internalLabel}>Internal only, not visible to customer</div>
                     <p className={styles.internalNote}>No automated screening result available for this submission. Review manually, or run it now.</p>
                     <button className={styles.rerunBtn} onClick={rerunAi} disabled={runningAi} type="button">
                       {runningAi ? 'Running…' : 'Run AI check'}

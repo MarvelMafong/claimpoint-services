@@ -183,7 +183,7 @@ export default function ChatWidget() {
         onPointerDown={handlePointerDown}
         onClick={handleLauncherClick}
         type="button"
-        aria-label="Live chat — drag to move, click to open"
+        aria-label="Live chat, drag to move, click to open"
       >
         {open ? '×' : (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none">

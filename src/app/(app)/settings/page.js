@@ -3,7 +3,7 @@ import { getProfile } from '@/lib/data/claims';
 import { getLoginHistory } from '@/lib/data/login-history';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Settings — ClaimPoint Solutions' };
+export const metadata = { title: 'Settings - ClaimPoint Solutions' };
 
 export default async function SettingsPage() {
   const [{ profile }, { history }] = await Promise.all([getProfile(), getLoginHistory()]);

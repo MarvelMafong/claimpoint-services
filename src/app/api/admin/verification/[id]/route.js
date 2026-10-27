@@ -32,10 +32,6 @@ export async function PATCH(request, { params }) {
   const { data: user } = await supabase.auth.admin.getUserById(session.user_id);
   const { data: profile } = await supabase.from('profiles').select('first_name').eq('id', session.user_id).single();
 
-  if (user?.user?.email) {
-    const { subject, html } = emailTemplates.verificationStatusChanged(profile?.first_name ?? 'there', status);
-    await sendEmail({ to: user.user.email, subject, html });
-  }
 
   const messages = {
     verified: 'Your identity has been verified.',

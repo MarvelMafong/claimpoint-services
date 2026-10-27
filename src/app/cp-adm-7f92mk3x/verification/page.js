@@ -2,7 +2,7 @@ import { getVerificationQueue } from '@/lib/data/admin-extra';
 import VerificationQueue from '@/components/admin/VerificationQueue';
 import styles from '../admin-page.module.css';
 
-export const metadata = { title: 'Verification Queue — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Verification Queue - Admin - ClaimPoint Solutions' };
 
 export default async function AdminVerificationPage() {
   const { sessions } = await getVerificationQueue();

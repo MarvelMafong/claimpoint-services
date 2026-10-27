@@ -2,7 +2,7 @@ import AccountsGrid from '@/components/dashboard/AccountsGrid';
 import { getAccounts } from '@/lib/data/accounts';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Accounts — ClaimPoint Solutions' };
+export const metadata = { title: 'Accounts - ClaimPoint Solutions' };
 
 export default async function AccountsPage() {
   const { accounts, error } = await getAccounts();

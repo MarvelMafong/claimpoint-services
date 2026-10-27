@@ -1,7 +1,7 @@
 import { getNotifications } from '@/lib/data/notifications';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Notifications — ClaimPoint Solutions' };
+export const metadata = { title: 'Notifications - ClaimPoint Solutions' };
 
 export default async function NotificationsPage() {
   const { notifications } = await getNotifications({ limit: 50 });

@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'ClaimPoint Solutions — Recovery and Banking, One Platform';
+export const alt = 'ClaimPoint Solutions - Recovery and Banking, One Platform';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

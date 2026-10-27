@@ -94,7 +94,7 @@ export async function POST(request, { params }) {
       type: 'transfer',
       status: 'completed',
       amount: balanceToMove,
-      description: `${account.display_name} closed — balance moved to Standard Account`,
+      description: `${account.display_name} closed, balance moved to Standard Account`,
     });
     if (txnError) console.error('Account close transaction log error:', txnError.message);
   }

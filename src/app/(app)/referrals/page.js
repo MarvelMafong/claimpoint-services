@@ -3,7 +3,7 @@ import StatusBadge from '@/components/ui/StatusBadge';
 import { getReferralData } from '@/lib/data/referrals';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Referrals — ClaimPoint Solutions' };
+export const metadata = { title: 'Referrals - ClaimPoint Solutions' };
 
 export default async function ReferralsPage() {
   const { referralCode, referrals } = await getReferralData();
@@ -30,7 +30,7 @@ export default async function ReferralsPage() {
                 <span>{r.referred_email ?? 'Pending signup'}</span>
                 <StatusBadge status={r.status} />
                 <span className={styles.reward}>
-                  {r.reward_amount ? `$${Number(r.reward_amount).toLocaleString()}` : '—'}
+                  {r.reward_amount ? `$${Number(r.reward_amount).toLocaleString()}` : '-'}
                 </span>
               </div>
             ))}

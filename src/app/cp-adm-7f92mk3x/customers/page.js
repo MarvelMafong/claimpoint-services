@@ -4,7 +4,7 @@ import StatusBadge from '@/components/ui/StatusBadge';
 import styles from '../admin-page.module.css';
 import tableStyles from '../table.module.css';
 
-export const metadata = { title: 'Customers — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Customers - Admin - ClaimPoint Solutions' };
 
 export default async function AdminCustomersPage() {
   const { customers } = await getCustomers();

@@ -7,7 +7,7 @@ import { getClaimDetailForCustomer } from '@/lib/data/claim-detail';
 import { getClaimComments } from '@/lib/data/claim-comments';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Claim Detail — ClaimPoint Solutions' };
+export const metadata = { title: 'Claim Detail - ClaimPoint Solutions' };
 
 const CANCELLABLE_STATUSES = ['submitted', 'under_review'];
 

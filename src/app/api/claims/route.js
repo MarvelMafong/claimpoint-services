@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getSupabaseServerClient, getSupabaseServiceClient } from '@/lib/supabase/server';
-import { sendEmail } from '@/lib/email/client';
+import { deliverEmail } from '@/lib/email/deliver';
 import { emailTemplates } from '@/lib/email/templates';
 
 export async function POST(request) {
@@ -56,7 +56,7 @@ export async function POST(request) {
 
   if (user.email) {
     const { subject, html } = emailTemplates.claimSubmitted(profile?.first_name ?? 'there', reference);
-    await sendEmail({ to: user.email, subject, html });
+    await deliverEmail({ userId: user.id, to: user.email, category: 'claims', subject, html });
   }
 
   // Admin notification — service client since admin_notifications has no

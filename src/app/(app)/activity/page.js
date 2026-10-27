@@ -2,7 +2,7 @@ import StatusBadge from '@/components/ui/StatusBadge';
 import { getTransactions } from '@/lib/data/transactions';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Activity — ClaimPoint Solutions' };
+export const metadata = { title: 'Activity - ClaimPoint Solutions' };
 
 export default async function ActivityPage() {
   const { transactions, error } = await getTransactions();

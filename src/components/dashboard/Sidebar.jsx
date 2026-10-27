@@ -83,7 +83,7 @@ export default function Sidebar({ profile }) {
           </div>
         )}
         <div className={styles.userRow}>
-          <div className={styles.userAvatar}>{initials || '—'}</div>
+          <div className={styles.userAvatar}>{initials || '-'}</div>
           <div className={styles.userMeta}>
             <div className={styles.userName}>
               {profile ? `${profile.first_name} ${profile.last_name}` : 'Loading…'}

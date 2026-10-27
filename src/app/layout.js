@@ -19,7 +19,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: 'ClaimPoint Solutions — Recovery and Banking, One Platform',
+  title: 'ClaimPoint Solutions - Recovery and Banking, One Platform',
   description:
     'ClaimPoint helps you pursue funds lost to fraud and scams, and gives you a real financial account to manage what you have and grow what you recover.',
   manifest: '/manifest.json',

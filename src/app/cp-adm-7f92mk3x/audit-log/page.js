@@ -2,7 +2,7 @@ import { getAuditLog } from '@/lib/data/admin-extra';
 import styles from '../admin-page.module.css';
 import tableStyles from '../table.module.css';
 
-export const metadata = { title: 'Audit Log — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Audit Log - Admin - ClaimPoint Solutions' };
 
 export default async function AdminAuditLogPage() {
   const { entries } = await getAuditLog();

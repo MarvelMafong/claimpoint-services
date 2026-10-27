@@ -46,7 +46,7 @@ export default function VerificationDeadlineBanner({ profile }) {
       fontSize: 13, fontWeight: 600,
     }}>
       {isPastDeadline
-        ? 'Verification deadline has passed — withdrawals are now limited until you verify.'
+        ? 'Verification deadline has passed, withdrawals are now limited until you verify.'
         : `${daysRemaining} day${daysRemaining === 1 ? '' : 's'} remaining to verify before withdrawal limits apply · Deadline ${deadline.toLocaleDateString()}`}
       {' '}
       <a href="/verify" style={{ fontWeight: 700, textDecoration: 'underline' }}>Verify now →</a>

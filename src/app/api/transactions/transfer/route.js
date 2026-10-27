@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 import { getSystemSettings } from '@/lib/data/system-settings';
 import { createNotification } from '@/lib/notifications/create';
+import { deliverEmail } from '@/lib/email/deliver';
+import { emailTemplates } from '@/lib/email/templates';
 
 export async function POST(request) {
   const supabase = await getSupabaseServerClient();
@@ -85,6 +87,12 @@ export async function POST(request) {
     relatedEntityType: 'transaction',
     relatedEntityId: transaction.id,
   });
+
+  if (user.email) {
+    const { data: profile } = await supabase.from('profiles').select('first_name').eq('id', user.id).maybeSingle();
+    const { subject, html } = emailTemplates.transactionConfirmation(profile?.first_name ?? 'there', 'Transfer', numericAmount, transaction.reference);
+    await deliverEmail({ userId: user.id, to: user.email, category: 'transactions', subject, html });
+  }
 
   return NextResponse.json({ transaction, sandbox: !settings.production_financial_processing }, { status: 201 });
 }

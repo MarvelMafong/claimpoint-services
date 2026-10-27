@@ -1,6 +1,6 @@
 import styles from '../marketing-page.module.css';
 
-export const metadata = { title: 'Help Center — ClaimPoint Solutions' };
+export const metadata = { title: 'Help Center - ClaimPoint Solutions' };
 
 const faqs = [
   { q: 'How long does a claim take to review?', a: 'Most claims move into review within a few hours, and initial review typically completes in 24 to 72 hours.' },

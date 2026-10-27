@@ -7,7 +7,7 @@ import { getTransactions } from '@/lib/data/transactions';
 import { getClaims, getProfile } from '@/lib/data/claims';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Dashboard — ClaimPoint Solutions' };
+export const metadata = { title: 'Dashboard - ClaimPoint Solutions' };
 
 export default async function DashboardPage() {
   const [{ account }, { transactions }, { claims }, { profile }] = await Promise.all([

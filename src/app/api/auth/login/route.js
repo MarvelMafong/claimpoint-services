@@ -1,8 +1,10 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, after } from 'next/server';
 import { cookies } from 'next/headers';
 import { getSupabaseServerClient, getSupabaseServiceClient } from '@/lib/supabase/server';
 import { SESSION_ONLY_COOKIE, normalizeEmail } from '@/lib/auth/helpers';
 import { isGoogleOnlyAccount } from '@/lib/auth/lookup';
+import { deliverEmail } from '@/lib/email/deliver';
+import { emailTemplates } from '@/lib/email/templates';
 
 export const dynamic = 'force-dynamic';
 
@@ -40,6 +42,7 @@ export async function POST(request) {
     // after the user's last successful login, so old failed attempts can
     // never lock out someone who has since logged in fine.
     let lockedOut = false;
+    let lastSuccessMs = 0;
     try {
       const windowStartMs = Date.now() - WINDOW_MINUTES * 60 * 1000;
       const { data: lastOk } = await service
@@ -50,6 +53,7 @@ export async function POST(request) {
         .order('created_at', { ascending: false })
         .limit(1);
       const lastOkMs = lastOk?.[0] ? new Date(lastOk[0].created_at).getTime() : 0;
+      lastSuccessMs = lastOkMs;
       const since = new Date(Math.max(windowStartMs, lastOkMs)).toISOString();
 
       const { count, error: countError } = await service
@@ -160,6 +164,16 @@ export async function POST(request) {
       .eq('id', authData.user.id)
       .maybeSingle();
     if (profileError) console.error('login profile lookup error:', profileError.message);
+
+    // Security alert for a new login (skipped if the previous login was under 10 minutes ago).
+    if (Date.now() - lastSuccessMs > 10 * 60 * 1000) {
+      const loginUser = authData.user;
+      after(async () => {
+        const { data: p } = await service.from('profiles').select('first_name').eq('id', loginUser.id).maybeSingle();
+        const { subject, html } = emailTemplates.newLogin(p?.first_name ?? 'there');
+        await deliverEmail({ userId: loginUser.id, to: loginUser.email, category: 'security', subject, html });
+      });
+    }
 
     return NextResponse.json(
       { success: true, onboardingCompleted: profile?.onboarding_completed ?? true },

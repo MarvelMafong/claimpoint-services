@@ -4,7 +4,7 @@ import { getProfile } from '@/lib/data/claims';
 import { getBeneficiaries } from '@/lib/data/beneficiaries';
 import styles from '../money-page.module.css';
 
-export const metadata = { title: 'Withdraw — ClaimPoint Solutions' };
+export const metadata = { title: 'Withdraw - ClaimPoint Solutions' };
 
 export default async function WithdrawalsPage() {
   const [{ accounts }, { profile }, { beneficiaries }] = await Promise.all([

@@ -2,7 +2,7 @@ import AuthShell from '@/components/auth/AuthShell';
 import SignupForm from '@/components/auth/SignupForm';
 
 export const metadata = {
-  title: 'Create Account — ClaimPoint Solutions',
+  title: 'Create Account - ClaimPoint Solutions',
 };
 
 export default function SignupPage() {

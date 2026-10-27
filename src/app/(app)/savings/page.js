@@ -3,7 +3,7 @@ import { getActiveProducts } from '@/lib/data/products';
 import { getAccounts, isStandardAccount } from '@/lib/data/accounts';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Savings & CDs — ClaimPoint Solutions' };
+export const metadata = { title: 'Savings & CDs - ClaimPoint Solutions' };
 
 export default async function SavingsPage() {
   const [{ products }, { accounts }] = await Promise.all([getActiveProducts(), getAccounts()]);

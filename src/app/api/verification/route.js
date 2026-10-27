@@ -62,10 +62,6 @@ export async function POST(request) {
     .update({ verification_status: 'submitted', updated_at: new Date().toISOString() })
     .eq('id', user.id);
 
-  if (user.email) {
-    const { subject, html } = emailTemplates.verificationSubmitted(personal.firstName || 'there');
-    await sendEmail({ to: user.email, subject, html });
-  }
 
   // Admin notification — service client, admin_notifications has no
   // insert policy for regular users by design.

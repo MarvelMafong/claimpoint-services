@@ -2,7 +2,7 @@ import { getSystemSettings } from '@/lib/data/system-settings';
 import FinancialConfigForm from '@/components/admin/FinancialConfigForm';
 import styles from '../admin-page.module.css';
 
-export const metadata = { title: 'Financial Configuration — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Financial Configuration - Admin - ClaimPoint Solutions' };
 
 export default async function FinancialConfigPage() {
   const settings = await getSystemSettings();

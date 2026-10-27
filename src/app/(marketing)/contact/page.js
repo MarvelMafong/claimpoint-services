@@ -1,7 +1,7 @@
 import { getSiteSettings } from '@/lib/data/site-settings';
 import styles from '../marketing-page.module.css';
 
-export const metadata = { title: 'Contact — ClaimPoint Solutions' };
+export const metadata = { title: 'Contact - ClaimPoint Solutions' };
 
 export default async function ContactPage() {
   const settings = await getSiteSettings();

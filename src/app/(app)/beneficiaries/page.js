@@ -2,7 +2,7 @@ import BeneficiariesList from '@/components/beneficiaries/BeneficiariesList';
 import { getBeneficiaries } from '@/lib/data/beneficiaries';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Beneficiaries — ClaimPoint Solutions' };
+export const metadata = { title: 'Beneficiaries - ClaimPoint Solutions' };
 
 export default async function BeneficiariesPage() {
   const { beneficiaries } = await getBeneficiaries();

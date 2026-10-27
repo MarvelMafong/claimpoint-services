@@ -1,6 +1,6 @@
 import styles from '../marketing-page.module.css';
 
-export const metadata = { title: 'Security — ClaimPoint Solutions' };
+export const metadata = { title: 'Security - ClaimPoint Solutions' };
 
 export default function SecurityPage() {
   return (

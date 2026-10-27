@@ -3,7 +3,7 @@ import StatusBadge from '@/components/ui/StatusBadge';
 import { getClaims } from '@/lib/data/claims';
 import styles from './page.module.css';
 
-export const metadata = { title: 'My Claims — ClaimPoint Solutions' };
+export const metadata = { title: 'My Claims - ClaimPoint Solutions' };
 
 export default async function ClaimsListPage() {
   const { claims } = await getClaims();
@@ -34,7 +34,7 @@ export default async function ClaimsListPage() {
                   <div className={styles.claimRef}>{claim.reference}</div>
                 </div>
                 <div className={styles.claimAmount}>
-                  {claim.amount ? `$${Number(claim.amount).toLocaleString()}` : '—'}
+                  {claim.amount ? `$${Number(claim.amount).toLocaleString()}` : '-'}
                 </div>
                 <StatusBadge status={claim.status} />
               </Link>

@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 import { getSupabaseServerClient } from '@/lib/supabase/server';
 import VerificationFlow from '@/components/verification/VerificationFlow';
 
-export const metadata = { title: 'Verify Your Identity — ClaimPoint Solutions' };
+export const metadata = { title: 'Verify Your Identity - ClaimPoint Solutions' };
 
 export default async function VerifyPage() {
   const supabase = await getSupabaseServerClient();

@@ -5,7 +5,7 @@ import CustomerFundPanel from '@/components/admin/CustomerFundPanel';
 import { getCustomerDetail } from '@/lib/data/customer-detail';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Customer Detail — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Customer Detail - Admin - ClaimPoint Solutions' };
 
 export default async function AdminCustomerDetailPage({ params }) {
   const { id } = await params;
@@ -36,10 +36,10 @@ export default async function AdminCustomerDetailPage({ params }) {
       <div className={styles.grid}>
         <div className={styles.card}>
           <h3>Profile</h3>
-          <div className={styles.row}><span>Phone</span><span>{profile.phone ?? '—'}</span></div>
-          <div className={styles.row}><span>Country</span><span>{profile.country ?? '—'}</span></div>
-          <div className={styles.row}><span>Street address</span><span>{profile.street_address ?? '—'}</span></div>
-          <div className={styles.row}><span>Referral code</span><span>{profile.referral_code ?? '—'}</span></div>
+          <div className={styles.row}><span>Phone</span><span>{profile.phone ?? '-'}</span></div>
+          <div className={styles.row}><span>Country</span><span>{profile.country ?? '-'}</span></div>
+          <div className={styles.row}><span>Street address</span><span>{profile.street_address ?? '-'}</span></div>
+          <div className={styles.row}><span>Referral code</span><span>{profile.referral_code ?? '-'}</span></div>
           <div className={styles.row}><span>Verification status</span><span>{profile.verification_status ?? 'unverified'}</span></div>
         </div>
 

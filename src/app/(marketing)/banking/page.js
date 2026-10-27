@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from '../marketing-page.module.css';
 
-export const metadata = { title: 'Banking — ClaimPoint Solutions' };
+export const metadata = { title: 'Banking - ClaimPoint Solutions' };
 
 export default function BankingPage() {
   return (

@@ -1,7 +1,7 @@
 import { getCustomerDocuments } from '@/lib/data/documents';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Documents — ClaimPoint Solutions' };
+export const metadata = { title: 'Documents - ClaimPoint Solutions' };
 
 export default async function DocumentsPage() {
   const { documents } = await getCustomerDocuments();
@@ -10,7 +10,7 @@ export default async function DocumentsPage() {
     <div className={styles.content}>
       <div className={styles.pageHead}>
         <h1>Documents</h1>
-        <p>Everything you&apos;ve uploaded — claim evidence and identity documents — in one place.</p>
+        <p>Everything you&apos;ve uploaded, claim evidence and identity documents, in one place.</p>
       </div>
 
       {documents.length === 0 ? (

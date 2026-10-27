@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { requireAdmin } from '@/lib/auth/admin';
 import { getSupabaseServiceClient } from '@/lib/supabase/server';
-import { sendEmail } from '@/lib/email/client';
+import { deliverEmail } from '@/lib/email/deliver';
+import { emailTemplates } from '@/lib/email/templates';
 import { createNotification } from '@/lib/notifications/create';
 
 export async function POST(request, { params }) {
@@ -36,22 +37,12 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: 'Could not save comment.' }, { status: 500 });
   }
 
-  // Email built inline here rather than through the shared templates file,
-  // so this doesn't depend on a template signature I can't currently see.
   const { data: authUser } = await supabase.auth.admin.getUserById(claim.user_id);
   const { data: profile } = await supabase.from('profiles').select('first_name').eq('id', claim.user_id).single();
 
   if (authUser?.user?.email) {
-    await sendEmail({
-      to: authUser.user.email,
-      subject: `Update on your claim ${claim.reference}`,
-      html: `
-        <p>Hi ${profile?.first_name ?? 'there'},</p>
-        <p>ClaimPoint has posted an update on your ${claim.category} claim (${claim.reference}):</p>
-        <blockquote style="border-left: 3px solid #5B4BFF; padding-left: 12px; color: #333;">${message.trim()}</blockquote>
-        <p>You can view the full claim and reply from your ClaimPoint dashboard.</p>
-      `,
-    });
+    const { subject, html } = emailTemplates.claimComment(profile?.first_name ?? 'there', claim.reference, claim.category, message.trim());
+    await deliverEmail({ userId: claim.user_id, to: authUser.user.email, category: 'claims', subject, html });
   }
 
   await createNotification({

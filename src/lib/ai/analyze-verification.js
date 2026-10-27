@@ -27,7 +27,7 @@ Respond in this exact JSON format, nothing else:
 export async function analyzeVerificationDocument(imageBase64, mimeType) {
   const client = getGeminiClient();
   if (!client) {
-    return { result: 'manual_review_required', risk_indicator: 'medium', notes: 'AI screening unavailable — routed directly to manual review.' };
+    return { result: 'manual_review_required', risk_indicator: 'medium', notes: 'AI screening unavailable, routed directly to manual review.' };
   }
 
   try {
@@ -44,6 +44,6 @@ export async function analyzeVerificationDocument(imageBase64, mimeType) {
     console.error('Gemini analysis error:', err.message);
     // Conservative failure mode — if analysis fails for any reason, route
     // to manual review rather than silently skipping the check.
-    return { result: 'manual_review_required', risk_indicator: 'medium', notes: 'Automated screening failed to complete — routed to manual review.' };
+    return { result: 'manual_review_required', risk_indicator: 'medium', notes: 'Automated screening failed to complete, routed to manual review.' };
   }
 }

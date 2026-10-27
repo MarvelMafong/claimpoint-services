@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import styles from '../marketing-page.module.css';
 
-export const metadata = { title: 'About — ClaimPoint Solutions' };
+export const metadata = { title: 'About - ClaimPoint Solutions' };
 
 export default function AboutPage() {
   return (

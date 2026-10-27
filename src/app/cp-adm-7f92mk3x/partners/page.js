@@ -2,7 +2,7 @@ import { getAllPartners } from '@/lib/data/partners';
 import PartnersManager from '@/components/admin/PartnersManager';
 import styles from '../admin-page.module.css';
 
-export const metadata = { title: 'Partners — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Partners - Admin - ClaimPoint Solutions' };
 
 export default async function AdminPartnersPage() {
   const { partners } = await getAllPartners();

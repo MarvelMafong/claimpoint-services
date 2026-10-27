@@ -1,3 +1,9 @@
+const APP_URL = (process.env.NEXT_PUBLIC_APP_URL || 'https://www.claimpointsolutions.com').replace(/\/$/, '');
+
+function esc(value) {
+  return String(value ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
 // One shared HTML wrapper, brand colors from the locked palette, so every
 // email looks consistent without repeating the header/footer markup.
 function wrapper(bodyHtml) {
@@ -25,9 +31,9 @@ export const emailTemplates = {
   welcome: (name) => ({
     subject: 'Welcome to ClaimPoint',
     html: wrapper(`
-      <h2 style="color:#17152B;">Welcome, ${name}</h2>
+      <h2 style="color:#17152B;">Welcome, ${esc(name)}</h2>
       <p style="color:#686579; line-height:1.6;">Your ClaimPoint account is ready. Verify your identity to unlock full access to deposits, withdrawals, and transfers.</p>
-      ${button('Verify your identity', 'https://claimpoint.com/verify')}
+      ${button('Verify your identity', `${APP_URL}/verify`)}
     `),
   }),
 
@@ -35,8 +41,8 @@ export const emailTemplates = {
     subject: `Claim ${reference} received`,
     html: wrapper(`
       <h2 style="color:#17152B;">Claim submitted</h2>
-      <p style="color:#686579; line-height:1.6;">Hi ${name}, your claim <strong>${reference}</strong> is now under review. We typically respond within 24 to 72 hours.</p>
-      ${button('View your claim', 'https://claimpoint.com/dashboard')}
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, your claim <strong>${esc(reference)}</strong> is now under review. We typically respond within 24 to 72 hours.</p>
+      ${button('View your claim', `${APP_URL}/dashboard`)}
     `),
   }),
 
@@ -44,8 +50,8 @@ export const emailTemplates = {
     subject: `Update on claim ${reference}`,
     html: wrapper(`
       <h2 style="color:#17152B;">Claim status updated</h2>
-      <p style="color:#686579; line-height:1.6;">Hi ${name}, your claim <strong>${reference}</strong> is now <strong>${status.replace(/_/g, ' ')}</strong>.</p>
-      ${button('View details', 'https://claimpoint.com/dashboard')}
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, your claim <strong>${esc(reference)}</strong> is now <strong>${status.replace(/_/g, ' ')}</strong>.</p>
+      ${button('View details', `${APP_URL}/dashboard`)}
     `),
   }),
 
@@ -53,7 +59,7 @@ export const emailTemplates = {
     subject: 'Verification received',
     html: wrapper(`
       <h2 style="color:#17152B;">Documents received</h2>
-      <p style="color:#686579; line-height:1.6;">Hi ${name}, your identity verification is under review. This typically takes 24 to 72 hours.</p>
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, your identity verification is under review. This typically takes 24 to 72 hours.</p>
     `),
   }),
 
@@ -67,17 +73,17 @@ export const emailTemplates = {
       subject: 'Verification update',
       html: wrapper(`
         <h2 style="color:#17152B;">Verification update</h2>
-        <p style="color:#686579; line-height:1.6;">Hi ${name}, ${messages[status] || `your verification status is now ${status.replace(/_/g, ' ')}.`}</p>
-        ${button('View your account', 'https://claimpoint.com/dashboard')}
+        <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, ${messages[status] || `your verification status is now ${status.replace(/_/g, ' ')}.`}</p>
+        ${button('View your account', `${APP_URL}/dashboard`)}
       `),
     };
   },
 
   transactionConfirmation: (name, type, amount, reference) => ({
-    subject: `${type} confirmation — ${reference}`,
+    subject: `${type} confirmation - ${reference}`,
     html: wrapper(`
       <h2 style="color:#17152B;">${type} received</h2>
-      <p style="color:#686579; line-height:1.6;">Hi ${name}, your ${type.toLowerCase()} of $${amount.toLocaleString()} (${reference}) is being processed.</p>
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, your ${type.toLowerCase()} of $${amount.toLocaleString()} (${esc(reference)}) is being processed.</p>
     `),
   }),
 
@@ -85,7 +91,34 @@ export const emailTemplates = {
     subject: 'Your password was changed',
     html: wrapper(`
       <h2 style="color:#17152B;">Security alert</h2>
-      <p style="color:#686579; line-height:1.6;">Hi ${name}, your ClaimPoint password was just changed. If this wasn't you, contact support immediately.</p>
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, your ClaimPoint password was just changed. If this wasn't you, contact support immediately.</p>
     `),
+  }),
+
+  newLogin: (name) => ({
+    subject: 'New login to your account',
+    html: wrapper(`
+      <h2 style="color:#17152B;">Security alert</h2>
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)}, there was a new login to your ClaimPoint account. If this wasn't you, change your password and contact support immediately.</p>
+    `),
+  }),
+
+  productUpdate: (name, subject, message) => ({
+    subject,
+    html: wrapper(`
+      <h2 style="color:#17152B;">${esc(subject)}</h2>
+      <p style="color:#686579; line-height:1.6;">Hi ${esc(name)},</p>
+      <p style="color:#686579; line-height:1.6; white-space:pre-line;">${esc(message)}</p>
+    `),
+  }),
+
+  claimComment: (name, reference, category, message) => ({
+    subject: `Update on your claim ${reference}`,
+    html: `
+        <p>Hi ${esc(name)},</p>
+        <p>ClaimPoint has posted an update on your ${esc(category)} claim (${esc(reference)}):</p>
+        <blockquote style="border-left: 3px solid #5B4BFF; padding-left: 12px; color: #333;">${esc(message)}</blockquote>
+        <p>You can view the full claim and reply from your ClaimPoint dashboard.</p>
+      `,
   }),
 };

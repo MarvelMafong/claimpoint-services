@@ -145,7 +145,7 @@ export default function ClaimsWorkspace({ initialClaims, loadError }) {
               <div>
                 {detail.internalReview && (
                   <div className={styles.internalCard}>
-                    <div className={styles.internalLabel}>Internal only — not visible to customer</div>
+                    <div className={styles.internalLabel}>Internal only, not visible to customer</div>
                     <div className={styles.internalRow}><span>Automated check</span><span>{detail.internalReview.automated_check_result}</span></div>
                     <div className={styles.internalRow}><span>Risk indicator</span><span>{detail.internalReview.risk_indicator}</span></div>
                     <p className={styles.internalNote}>Automated screening is advisory only. Final decisions are made by a human reviewer.</p>

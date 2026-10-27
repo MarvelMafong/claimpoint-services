@@ -2,7 +2,7 @@ import { getAllTestimonials } from '@/lib/data/testimonials';
 import TestimonialsManager from '@/components/admin/TestimonialsManager';
 import styles from '../admin-page.module.css';
 
-export const metadata = { title: 'Testimonials — Admin — ClaimPoint Solutions' };
+export const metadata = { title: 'Testimonials - Admin - ClaimPoint Solutions' };
 
 export default async function AdminTestimonialsPage() {
   const { testimonials } = await getAllTestimonials();

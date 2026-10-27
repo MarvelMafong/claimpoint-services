@@ -1,7 +1,7 @@
 import { getOverviewStats, getClaimsForAdmin } from '@/lib/data/admin';
 import styles from './page.module.css';
 
-export const metadata = { title: 'Admin Dashboard — ClaimPoint Solutions' };
+export const metadata = { title: 'Admin Dashboard - ClaimPoint Solutions' };
 
 export default async function AdminDashboardPage() {
   const stats = await getOverviewStats();
@@ -48,7 +48,7 @@ export default async function AdminDashboardPage() {
               <span>{c.profiles?.first_name} {c.profiles?.last_name}<br /><span className={styles.ref}>{c.reference}</span></span>
               <span>{c.category}</span>
               <span>{c.status}</span>
-              <span>{c.amount ? `$${Number(c.amount).toLocaleString()}` : '—'}</span>
+              <span>{c.amount ? `$${Number(c.amount).toLocaleString()}` : '-'}</span>
             </div>
           ))}
         </div>
