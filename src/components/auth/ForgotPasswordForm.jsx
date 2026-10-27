@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { normalizeEmail } from '@/lib/auth/helpers';
 import styles from './AuthForm.module.css';
 
 export default function ForgotPasswordForm() {
@@ -15,16 +16,22 @@ export default function ForgotPasswordForm() {
     e.preventDefault();
     setError(null);
 
-    if (!email) {
+    const cleanEmail = normalizeEmail(email);
+    if (!cleanEmail) {
       setError('Enter your email address to continue.');
       return;
     }
 
     setLoading(true);
-    const supabase = getSupabaseBrowserClient();
-    const { error: resetError } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password`,
-    });
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+        redirectTo: `${window.location.origin}/reset-password`,
+      });
+      if (resetError) console.error('resetPasswordForEmail failed:', resetError.code, resetError.message);
+    } catch (err) {
+      console.error('resetPasswordForEmail threw:', err);
+    }
     setLoading(false);
 
     // Always show the same success message regardless of whether the

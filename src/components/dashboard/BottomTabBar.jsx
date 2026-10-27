@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { logoutAndRedirect } from '@/lib/auth/client-logout';
 import styles from './BottomTabBar.module.css';
 
 const tabs = [
@@ -48,10 +48,7 @@ export default function BottomTabBar() {
   const [hubOpen, setHubOpen] = useState(false);
 
   async function handleLogout() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    await logoutAndRedirect();
   }
 
   return (

@@ -18,6 +18,17 @@ export function getSupabaseBrowserClient() {
     );
   }
 
-  browserClient = createBrowserClient(url, anonKey);
+  // "Stay logged in" unticked → the login route left a session-only marker
+  // cookie; keep token refreshes done in the browser session-only too.
+  let sessionOnly = false;
+  try {
+    sessionOnly = typeof document !== 'undefined' && /(?:^|;\s*)cp_session_only=1/.test(document.cookie);
+  } catch {}
+
+  browserClient = createBrowserClient(
+    url,
+    anonKey,
+    sessionOnly ? { cookieOptions: { maxAge: undefined } } : undefined
+  );
   return browserClient;
 }

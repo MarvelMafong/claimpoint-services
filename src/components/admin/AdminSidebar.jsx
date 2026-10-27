@@ -4,7 +4,7 @@ import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { logoutAndRedirect } from '@/lib/auth/client-logout';
 import AdminNotificationsBell from '@/components/admin/AdminNotificationsBell';
 import styles from './AdminSidebar.module.css';
 
@@ -19,10 +19,7 @@ function SidebarContent({ adminName, pathname, onNavigate, notifications }) {
   const router = useRouter();
 
   async function handleLogout() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    await logoutAndRedirect();
   }
 
   return (
@@ -70,10 +67,7 @@ export default function AdminSidebar({ adminName, notifications }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   async function handleMobileLogout() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    await logoutAndRedirect();
   }
 
   return (

@@ -1,11 +1,17 @@
 import { createServerClient } from '@supabase/ssr';
+import { createClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
+import { SESSION_ONLY_COOKIE, applySessionOnly } from '@/lib/auth/helpers';
 
 // Server-side client for Server Components, Server Actions, and Route
 // Handlers. Built fresh per request (cookies are request-scoped), but the
 // creation itself stays lazy — nothing touches env vars or cookies until
 // this function is actually called.
-export async function getSupabaseServerClient() {
+//
+// `sessionOnly` forces session-only cookies (used by the login route when
+// "Stay logged in" is unticked). When omitted it follows the marker cookie
+// the login route leaves behind, so token refreshes keep the same lifetime.
+export async function getSupabaseServerClient({ sessionOnly } = {}) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
@@ -16,6 +22,8 @@ export async function getSupabaseServerClient() {
   }
 
   const cookieStore = await cookies();
+  const forceSessionOnly =
+    sessionOnly ?? cookieStore.get(SESSION_ONLY_COOKIE)?.value === '1';
 
   return createServerClient(url, anonKey, {
     cookies: {
@@ -25,7 +33,7 @@ export async function getSupabaseServerClient() {
       setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) =>
-            cookieStore.set(name, value, options)
+            cookieStore.set(name, value, applySessionOnly(options, forceSessionOnly))
           );
         } catch {
           // Called from a Server Component without a mutable cookie store.
@@ -56,7 +64,6 @@ export function getSupabaseServiceClient() {
 
   // Plain createClient, not createServerClient — service role calls don't
   // need cookie-based session handling, they authenticate via the key itself.
-  const { createClient } = require('@supabase/supabase-js');
   serviceClient = createClient(url, serviceKey, {
     auth: { autoRefreshToken: false, persistSession: false },
   });

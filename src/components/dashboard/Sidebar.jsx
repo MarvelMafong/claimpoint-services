@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { logoutAndRedirect } from '@/lib/auth/client-logout';
 import styles from './Sidebar.module.css';
 
 const navGroups = [
@@ -51,10 +51,7 @@ export default function Sidebar({ profile }) {
   const initials = profile ? `${profile.first_name?.[0] ?? ''}${profile.last_name?.[0] ?? ''}` : '';
 
   async function handleLogout() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signOut();
-    router.push('/login');
-    router.refresh();
+    await logoutAndRedirect();
   }
 
   return (

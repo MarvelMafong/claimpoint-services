@@ -1,0 +1,71 @@
+# Auth fix report (Phase 1)
+
+Date: 2026-10-27. App: `claimpoint` (Next.js 16, Supabase, Vercel).
+
+## 1. Issues found and what changed
+
+| # | Issue | Fix |
+|---|---|---|
+| 1 | `src/app/auth/callback/route.js` was **empty**. Google sign-in (and signup-confirmation links) returned to a route that did nothing, so nobody could finish Google login. | Implemented `GET`: reads `?code`, `exchangeCodeForSession`, then redirects to `/onboarding` if `profiles.onboarding_completed === false`, else `/dashboard`. Any failure (no code, provider error, bad/used code, exception) redirects to `/login?error=oauth`. `?next` is honoured only for same-origin paths (`//evil.com`, `https://…`, `/\…` are rejected). |
+| 2 | Google login used `redirectTo: /dashboard`, which skips the code exchange. | `LoginForm` now uses `${window.location.origin}/auth/callback`. Errors are caught and shown with the existing "Something went wrong logging you in." text. `/login?error=oauth` shows that same existing message. |
+| 3 | Login was case/space sensitive. | Email is trimmed + lower-cased and the password trimmed in `LoginForm`, `/api/auth/login`, `SignupForm`, `ForgotPasswordForm`, `ResetPasswordForm`, `/api/settings/password`. The login API tries the trimmed password first and, only if that is "invalid credentials" and the typed password differs, the password exactly as typed (so accounts whose stored password really has edge spaces still work). The email is always required to match; a password never logs anyone in under a different email. |
+| 4 | Google-only accounts got the generic wrong-password message. | On invalid credentials the service client checks whether that email exists with only a Google identity (`app_metadata.providers`). If so: "This account uses Google sign-in. Use 'Continue with Google'." Otherwise the existing generic message; unknown and known-password emails get identical responses (tested). |
+| 5 | Lockout: 5 failures/15 min, old failures counted forever inside the window. | `MAX_ATTEMPTS = 10`. Only failures **after the user's last successful login** inside the 15 min window count; a successful login deletes that email's failed rows (success rows are kept for the login-history screen). Lockout-check errors fail open (logged) instead of blocking logins. |
+| 6 | Identity linking | See section 4 (Supabase settings). Code treats Google + password as one account because Supabase links by verified email; nothing in code creates a second account. |
+| 7 | Forgot/reset password | `ResetPasswordForm` never waited for the session the reset link creates, and showed no problem if the link was expired/used/opened elsewhere. It now waits for the client to finish the PKCE exchange (`getSession`), detects `?error=` / `#error=otp_expired` and a missing session, shows the **existing** "This reset link may have expired. Please request a new one." message, re-checks the session before `updateUser`, and maps other failures to the existing "Could not update your password. Please try again." Forgot form logs Supabase errors with `console.error` but still always shows the same success screen (no account enumeration). |
+| 8a | **Middleware only protected 5 prefixes** (`/dashboard /accounts /activity /claims /verify`). `/settings /savings /deposits /transfers /withdrawals /documents /notifications /referrals /beneficiaries /support /onboarding` and the whole admin area were reachable without a session at the middleware layer. | Middleware now protects all customer pages, `/onboarding`, `/cp-adm-7f92mk3x/*` and `/api/admin/*`. Admin API returns JSON 401/403 instead of an HTML redirect that `fetch()` callers choke on. Protected responses carry `Cache-Control: no-store` (back button after logout). Middleware no longer throws if Supabase is unreachable (fails open, logged; pages re-check). |
+| 8b | **"Stay logged in" OFF (the default) broke logout.** The login route re-wrote the Supabase cookies as `httpOnly`, so the browser client could not read them: `signOut()` from the browser could not clear them, password reset / `updateUser` from the browser had no session, and the "session cookie" was silently turned persistent again by the next token refresh. | Cookies are no longer re-written. The server client strips `Max-Age/Expires` when the user did not tick the box (and a non-HttpOnly marker cookie `cp_session_only` keeps refreshes in middleware, server and browser session-only). Logged in with the box ticked = 400-day persistent cookies as before. |
+| 8c | Logout | New `POST /api/auth/logout` (server-side, local-scope sign-out + cookie sweep). All four logout buttons (customer sidebar, bottom bar, topbar button, admin sidebar desktop+mobile) use one helper that calls it, then does a full navigation to `/login` (no router/bfcache leftovers). Logout of one device does not log out the user's other devices (tested). Existing customers who are still holding the old HttpOnly cookies can now log out too. |
+| 8d | `requireAdmin` read `admins` with the user's RLS client; a missing/strict policy bounced real admins to `/dashboard`. | Looks up `admins` with the service client **after** `getUser()` has verified the user; errors are logged. |
+| 8e | Signup | Duplicate-email detection: with email confirmation on Supabase returns a fake user with no identities instead of an error, so "already exists" never showed. Fixed. `emailRedirectTo` now points at `/auth/callback`. Double submit guard, errors logged. |
+| 8f | Login API robustness | Invalid/empty JSON no longer throws a raw 500; whole handler wrapped in try/catch with `console.error`; profile lookup uses `maybeSingle`; Supabase's own sign-in rate limit (HTTP 429 `over_request_rate_limit`) is logged and returned as 429 with the existing generic message. |
+| 8g | Double-click login | `LoginForm` and `SignupForm`/`ResetPasswordForm` ignore a second submit while one is in flight. Two concurrent login requests also both succeed (tested). |
+
+New routes: `GET /api/health/auth` (env present, Supabase auth + DB respond, no secrets), `GET /api/keep-alive` (did not exist; reads 1 row of `site_settings`).
+
+No SQL was run on the live database and no migration is needed. No visible text, wording, typography or layout was changed; the only new string is the Google-only message from item 4.
+
+## 2. Test evidence
+
+`scripts/auth-check.mjs` (run with `BASE=http://localhost:3100 node scripts/auth-check.mjs`) runs 39 checks against the local **production build** (`next build && next start`) using the live Supabase project:
+health + keep-alive, email login, capitalisation/spaces, password with symbols, wrong password (generic, no enumeration), Google-only message, malformed bodies, double-click, onboarding flag, lockout (seeded 10 failures → 429 even with the right password; window expiry; clear-on-success; 9 failures do not lock), stay-logged-in on/off cookie attributes, session-only survives refresh, every customer page redirects with no session, admin pages/API without a session, garbage cookie, customer reaches pages + `no-store`, customer blocked from admin (redirect / JSON 403), expired access token refreshed, admin reaches admin page + API, logout (old cookie rejected), two devices, callback error paths (no code, bad code, provider error, open-redirect attempts), reset email request (known vs unknown identical), recovery link → new password works / old fails, used token rejected, settings password change, signup (profile row created by trigger, unconfirmed login message, duplicate detection, login after confirmation).
+
+Result: **3 consecutive full runs, 39/39, 0 failures** (run ids `mvpz6gyd`, `mvpz8pcv`, `mvpzab4l`). (An earlier run against `next dev` had 2 failures that were dev-server artefacts: first-compile timeout and dev not sending `no-store`; the production build is what ships.)
+
+Real-browser check (headless Chrome, 14 checks, all pass): wrong-password message, `?error=oauth` message, reset page with no session / `otp_expired` shows the existing expired message and submit is refused, double-click login → `/dashboard`, auth cookies are session cookies and not HttpOnly, logout button → `/login` with no `sb-` cookies, back button after logout does not show the dashboard, stay-logged-in cookies persistent, second tab bounced to `/login` after logout in the first.
+
+Also checked: anonymous (anon key) cannot read or insert `login_attempts` (RLS blocks it), cannot read `admins` or `profiles`.
+
+### Could NOT be tested (stated plainly)
+- A real Google round trip and a **successful** `exchangeCodeForSession` in `/auth/callback` (needs a real Google login / a PKCE code from an inbox). Only the failure paths and the redirect-safety logic were exercised. Please do one manual Google login after deploy.
+- Receiving the real reset/confirmation emails (Resend SMTP delivery) and clicking them. The reset flow was tested by generating the recovery token with the admin API and verifying it, then `updateUser`, then logging in.
+- The reset page *with a valid live session* in a browser (only the no-session / expired-link states were driven in a browser).
+- Behaviour behind the real domain: www vs non-www, a redeploy during an active session, and Supabase's per-IP rate limit under real traffic. Reasoned from code: sessions live in cookies + Supabase JWTs, nothing in memory depends on a deploy, so a redeploy does not log anyone out.
+
+## 3. What you must do manually
+
+1. **Schedule the keep-alive** on cron-job.org: Create cronjob → URL `https://claimpointsolutions.com/api/keep-alive` → method GET → schedule every 12 hours (anything under 7 days works) → expected response 200 `{"ok":true}`; enable "notify on failure".
+2. After deploy, open `https://claimpointsolutions.com/api/health/auth`: it must say `"ok":true`.
+3. Do one manual Google login and one manual forgot-password email (click the link in the **same browser** you requested it from).
+4. Remove the test users listed in section 5 when you are done.
+
+## 4. Cannot be guaranteed by code (outside the code that can still break auth)
+
+- **Supabase per-IP sign-in rate limit (most likely cause of "random" failures at scale).** Login runs on the server (`/api/auth/login`), so Supabase sees Vercel's egress IPs, not the customers'. Default limit is 30 sign-ins/sign-ups per 5 minutes **per IP**, shared by all customers. Set Auth → Rate Limits → "Rate limit for sign-ups and sign-ins" as high as your plan allows. If you cannot raise it, tell me and I will move password sign-in to the browser so the limit is per customer IP.
+- **Email sending limit**: with custom SMTP Supabase defaults to ~30 auth emails per hour. Raise it in Auth → Rate Limits → "Rate limit for sending emails". Confirm the Resend sending domain is verified and the SMTP "sender email" is on that domain.
+- **Redirect URLs** (Auth → URL Configuration): Site URL `https://claimpointsolutions.com`; Redirect URLs must include `https://claimpointsolutions.com/**` **and** `https://www.claimpointsolutions.com/**` (the app uses `window.location.origin`, so whichever host the customer is on must be allowed). Remove any `localhost` entries from production if you do not need them.
+- **www vs non-www**: cookies are per host, so a session on `www.` is not valid on the apex and vice versa. In Vercel → Domains set one as primary and redirect the other to it (308). I did not add a code redirect because it can loop if Vercel already redirects the other way.
+- **Google provider** (Auth → Providers → Google): enabled, Client ID/Secret set, and in Google Cloud Console the OAuth client's *Authorized redirect URI* is `<your NEXT_PUBLIC_SUPABASE_URL>/auth/v1/callback`; the OAuth consent screen is **published** (not "Testing", which only allows listed test users).
+- **Identity linking**: Supabase links a Google login to an existing password account only when the Google email is verified, and it is by email, so one person = one account. Keep **Confirm email = ON** (it is: an unconfirmed user exists), otherwise someone could pre-register another person's email with a password. Leave "Allow manual linking" off unless you want it. Users who signed up with Google only must use the Google button (they now get the Google message if they try a password).
+- **Vercel env vars** (Production, and Preview if you use previews): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `NEXT_PUBLIC_APP_URL`, `GEMINI_API_KEY`. `/api/health/auth` reports which of the first three are missing.
+- **Reset link in another browser/device**: links are PKCE and only work in the browser that requested them. If customers open them from a phone mail app after requesting on desktop, they see the expired message. To remove that limit, change the "Reset Password" email template to link to `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=recovery&next=/reset-password` and tell me, and I will add the `verifyOtp` branch.
+- **Free-tier project pausing**: the keep-alive only helps if cron-job.org keeps running.
+- **Pre-hydration submit**: if a customer submits the login form before the page's JavaScript has loaded, the browser performs a normal GET form submit. Pre-existing, not changed (it needs a form `method` change).
+
+## 5. Test users created (nothing was deleted; passwords were randomised at the end of each run)
+
+Pattern `authtest+<run>-<tag>@example.com` with tags `main symbol google customer admin lock fresh reset`, plus `delivered+authtest-<run>-signup@resend.dev`, for runs `mvpx2pr2`, `mvpz6gyd`, `mvpz8pcv`, `mvpzab4l` (and earlier dev run), plus `authtest+ui-*@example.com` and `authtest+dbg-*@example.com` from the browser checks. The temporary `admins` row added for each `authtest+*-admin` user was removed at the end of its run. Their `login_attempts` rows remain. Find all of them in Supabase → Authentication → Users by searching `authtest`.
+
+## 6. Left as is (your rules)
+
+The money/deposit flow and its messages were not touched; an uncommitted edit of yours in `src/components/money/MoneyForm.jsx` was left uncommitted and out of this commit. Next 16 reports `middleware.js` as deprecated in favour of `proxy.js`; it still works and was not renamed (no-refactor rule).

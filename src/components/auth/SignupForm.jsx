@@ -1,9 +1,10 @@
 'use client';
 
-import { useState, Suspense } from 'react';
+import { useRef, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { normalizeEmail, cleanPassword } from '@/lib/auth/helpers';
 import styles from './AuthForm.module.css';
 
 function SignupFormInner() {
@@ -17,16 +18,20 @@ function SignupFormInner() {
   const [agreed, setAgreed] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const submittingRef = useRef(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
     setError(null);
 
-    if (!firstName || !lastName || !email || !password) {
+    const cleanEmail = normalizeEmail(email);
+    const cleanPass = cleanPassword(password);
+
+    if (!firstName.trim() || !lastName.trim() || !cleanEmail || !cleanPass) {
       setError('Please fill in all required fields.');
       return;
     }
-    if (password.length < 8) {
+    if (cleanPass.length < 8) {
       setError('Password must be at least 8 characters.');
       return;
     }
@@ -35,6 +40,8 @@ function SignupFormInner() {
       return;
     }
 
+    if (submittingRef.current) return;
+    submittingRef.current = true;
     setLoading(true);
     const supabase = getSupabaseBrowserClient();
 
@@ -44,23 +51,36 @@ function SignupFormInner() {
     // ever recorded who used one.
     const referredBy = searchParams.get('ref');
 
-    const { error: authError } = await supabase.auth.signUp({
-      email,
-      password,
+    let authError = null;
+    let alreadyExists = false;
+    try {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+      email: cleanEmail,
+      password: cleanPass,
       options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
         data: {
-          first_name: firstName,
-          last_name: lastName,
-          phone,
+          first_name: firstName.trim(),
+          last_name: lastName.trim(),
+          phone: phone.trim(),
           ...(referredBy ? { referred_by: referredBy } : {}),
         },
       },
     });
+      authError = signUpError;
+      // With email confirmation on, Supabase answers a duplicate email with a
+      // fake user that has no identities instead of an error.
+      alreadyExists = !signUpError && Array.isArray(data?.user?.identities) && data.user.identities.length === 0;
+    } catch (err) {
+      authError = err;
+    }
 
     setLoading(false);
+    submittingRef.current = false;
 
-    if (authError) {
-      if (authError.message.toLowerCase().includes('already registered')) {
+    if (authError || alreadyExists) {
+      if (authError) console.error('signUp failed:', authError.code, authError.message);
+      if (alreadyExists || (authError.message ?? '').toLowerCase().includes('already registered') || authError.code === 'user_already_exists') {
         setError('An account with this email already exists.');
       } else {
         setError('Something went wrong creating your account. Please try again.');
@@ -73,11 +93,17 @@ function SignupFormInner() {
   }
 
   async function handleGoogleSignup() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
-    });
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: `${window.location.origin}/auth/callback` },
+      });
+      if (oauthError) throw oauthError;
+    } catch (err) {
+      console.error('google sign-up failed:', err);
+      setError('Something went wrong creating your account. Please try again.');
+    }
   }
 
   return (

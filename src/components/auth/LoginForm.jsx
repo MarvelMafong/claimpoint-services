@@ -1,9 +1,10 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
+import { normalizeEmail, cleanPassword } from '@/lib/auth/helpers';
 import styles from './AuthForm.module.css';
 
 export default function LoginForm() {
@@ -13,29 +14,44 @@ export default function LoginForm() {
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const submittingRef = useRef(false);
+
+  // The OAuth callback sends failures back here as /login?error=oauth.
+  useEffect(() => {
+    try {
+      if (new URLSearchParams(window.location.search).get('error') === 'oauth') {
+        setError('Something went wrong logging you in.');
+      }
+    } catch {}
+  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    if (submittingRef.current) return;
     setError(null);
 
-    if (!email || !password) {
+    const cleanEmail = normalizeEmail(email);
+    const cleanPass = cleanPassword(password);
+
+    if (!cleanEmail || !cleanPass) {
       setError('Enter your email and password to continue.');
       return;
     }
 
+    submittingRef.current = true;
     setLoading(true);
 
     try {
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, rememberMe: stayLoggedIn }),
+        body: JSON.stringify({ email: cleanEmail, password, rememberMe: stayLoggedIn }),
       });
       const json = await res.json();
 
-      setLoading(false);
-
       if (!res.ok) {
+        setLoading(false);
+        submittingRef.current = false;
         setError(json.error ?? 'Something went wrong logging you in.');
         return;
       }
@@ -44,18 +60,26 @@ export default function LoginForm() {
       // to the dashboard.
       router.push(json.onboardingCompleted ? '/dashboard' : '/onboarding');
       router.refresh();
-    } catch {
+    } catch (err) {
+      console.error('login request failed:', err);
       setLoading(false);
+      submittingRef.current = false;
       setError('Something went wrong. Please check your connection and try again.');
     }
   }
 
   async function handleGoogleLogin() {
-    const supabase = getSupabaseBrowserClient();
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/dashboard` },
-    });
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { error: oauthError } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: { redirectTo: `${window.location.origin}/auth/callback` },
+      });
+      if (oauthError) throw oauthError;
+    } catch (err) {
+      console.error('google sign-in failed:', err);
+      setError('Something went wrong logging you in.');
+    }
   }
 
   return (

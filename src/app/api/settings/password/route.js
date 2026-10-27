@@ -11,7 +11,15 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Not authenticated' }, { status: 401 });
   }
 
-  const { currentPassword, newPassword } = await request.json();
+  let body;
+  try {
+    body = await request.json();
+  } catch {
+    return NextResponse.json({ error: 'Both current and new password are required.' }, { status: 400 });
+  }
+  const rawCurrent = typeof body?.currentPassword === 'string' ? body.currentPassword : '';
+  const currentPassword = rawCurrent.trim();
+  const newPassword = typeof body?.newPassword === 'string' ? body.newPassword.trim() : '';
 
   if (!currentPassword || !newPassword) {
     return NextResponse.json({ error: 'Both current and new password are required.' }, { status: 400 });
@@ -24,10 +32,16 @@ export async function POST(request) {
   // updateUser() alone doesn't verify the old password, so without this
   // check anyone with an active session could change the password with no
   // proof they know the current one.
-  const { error: reauthError } = await supabase.auth.signInWithPassword({
+  let { error: reauthError } = await supabase.auth.signInWithPassword({
     email: user.email,
     password: currentPassword,
   });
+  if (reauthError && rawCurrent !== currentPassword) {
+    ({ error: reauthError } = await supabase.auth.signInWithPassword({
+      email: user.email,
+      password: rawCurrent,
+    }));
+  }
 
   if (reauthError) {
     return NextResponse.json({ error: 'Current password is incorrect.' }, { status: 401 });
