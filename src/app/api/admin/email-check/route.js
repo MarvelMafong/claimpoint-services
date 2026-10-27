@@ -21,7 +21,7 @@ export async function POST(request) {
   return NextResponse.json({
     ok: !result.error,
     configured: !!process.env.RESEND_API_KEY,
-    from: getFromAddress(),
+    from: result.from ?? getFromAddress(),
     id: result.data?.id ?? null,
     error: result.error ? (typeof result.error === 'string' ? result.error : result.error.message ?? 'send failed') : null,
   }, { status: result.error ? 502 : 200 });

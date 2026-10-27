@@ -37,18 +37,20 @@ export async function sendEmail({ to, subject, html }) {
   if (!client) return { error: 'Email not configured' };
 
   try {
+    let usedFrom = from;
     let { data, error } = await client.emails.send({ from, to, subject, html });
     // Sending domain not verified in Resend yet: fall back to Resend's shared
     // sender so something is still sent (it only reaches the Resend account owner).
     if (error && /not verified|domain/i.test(error.message ?? '') && from !== FALLBACK_FROM) {
       console.error('Resend rejected sender, retrying with fallback sender:', error.message);
+      usedFrom = FALLBACK_FROM;
       ({ data, error } = await client.emails.send({ from: FALLBACK_FROM, to, subject, html }));
     }
     if (error) {
       console.error('Resend send error:', error);
       return { error };
     }
-    return { data };
+    return { data, from: usedFrom };
   } catch (err) {
     console.error('Resend send exception:', err.message);
     return { error: err.message };
