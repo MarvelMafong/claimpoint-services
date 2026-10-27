@@ -5,7 +5,10 @@ export const metadata = {
   title: 'Create Account - ClaimPoint Solutions',
 };
 
-export default function SignupPage() {
+export default async function SignupPage({ searchParams }) {
+  const { ref } = await searchParams;
+  const referredBy = typeof ref === 'string' && ref ? ref : null;
+
   return (
     <AuthShell
       brandVariant="signup"
@@ -13,7 +16,7 @@ export default function SignupPage() {
       brandBody="One account covers both sides of ClaimPoint from the start."
       legalNote="ClaimPoint Solutions provides banking and recovery services through licensed financial partners."
     >
-      <SignupForm />
+      <SignupForm referredBy={referredBy} />
     </AuthShell>
   );
 }

@@ -1,15 +1,16 @@
 'use client';
 
-import { useRef, useState, Suspense } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import { normalizeEmail, cleanPassword } from '@/lib/auth/helpers';
 import styles from './AuthForm.module.css';
 
-function SignupFormInner() {
+// `referredBy` (the ?ref code) is read on the server by the page and passed
+// in, so the whole form is in the server-rendered HTML.
+export default function SignupForm({ referredBy = null }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
@@ -49,7 +50,6 @@ function SignupFormInner() {
     // from someone's referral link. Previously never captured at all —
     // the whole referral system generated codes but nothing downstream
     // ever recorded who used one.
-    const referredBy = searchParams.get('ref');
 
     let authError = null;
     let alreadyExists = false;
@@ -162,13 +162,5 @@ function SignupFormInner() {
         Already have an account? <Link href="/login">Log in</Link>
       </p>
     </>
-  );
-}
-
-export default function SignupForm() {
-  return (
-    <Suspense fallback={null}>
-      <SignupFormInner />
-    </Suspense>
   );
 }

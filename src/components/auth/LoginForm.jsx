@@ -1,29 +1,21 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 import { normalizeEmail, cleanPassword } from '@/lib/auth/helpers';
 import styles from './AuthForm.module.css';
 
-export default function LoginForm() {
+// `oauthError` comes from the server-read ?error=oauth (set by /auth/callback).
+export default function LoginForm({ oauthError = false }) {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [stayLoggedIn, setStayLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(oauthError ? 'Something went wrong logging you in.' : null);
   const submittingRef = useRef(false);
-
-  // The OAuth callback sends failures back here as /login?error=oauth.
-  useEffect(() => {
-    try {
-      if (new URLSearchParams(window.location.search).get('error') === 'oauth') {
-        setError('Something went wrong logging you in.');
-      }
-    } catch {}
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
