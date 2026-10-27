@@ -34,7 +34,7 @@ const wk = await webkit.launch();
   const page = await ctx.newPage();
   for (const [p, sel] of pages) {
     await page.goto(BASE + p, { waitUntil: 'domcontentloaded' });
-    check(`${p} form visible`, await page.locator(sel).first().isVisible());
+    await page.locator(sel).first().waitFor({ state: 'visible', timeout: 10000 }).catch(() => {}); check(`${p} form visible`, await page.locator(sel).first().isVisible());
   }
   await ctx.close();
 }
