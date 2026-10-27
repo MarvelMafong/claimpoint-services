@@ -1,0 +1,1598 @@
+[
+ {
+  "area": "data",
+  "target": "new user -> accounts",
+  "test": "accounts auto-created for a new signup",
+  "result": "works",
+  "detail": "rows=1 standard"
+ },
+ {
+  "area": "page/public",
+  "target": "/",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"ClaimPoint Solutions — Recovery and Banking, One Platform\" visibleChars=5712"
+ },
+ {
+  "area": "page/public",
+  "target": "/about",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"About — ClaimPoint Solutions\" visibleChars=1541"
+ },
+ {
+  "area": "page/public",
+  "target": "/banking",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Banking — ClaimPoint Solutions\" visibleChars=1400"
+ },
+ {
+  "area": "page/public",
+  "target": "/contact",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Contact — ClaimPoint Solutions\" visibleChars=965"
+ },
+ {
+  "area": "page/public",
+  "target": "/disclosures",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Terms of Service — ClaimPoint Solutions\" visibleChars=1080"
+ },
+ {
+  "area": "page/public",
+  "target": "/help",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Help Center — ClaimPoint Solutions\" visibleChars=1485"
+ },
+ {
+  "area": "page/public",
+  "target": "/how-it-works",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"ClaimPoint Solutions — Recovery and Banking, One Platform\" visibleChars=3588"
+ },
+ {
+  "area": "page/public",
+  "target": "/privacy",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Privacy Policy — ClaimPoint Solutions\" visibleChars=991"
+ },
+ {
+  "area": "page/public",
+  "target": "/recovery",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Recovery &amp; Claims — ClaimPoint Solutions\" visibleChars=1504"
+ },
+ {
+  "area": "page/public",
+  "target": "/security",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Security — ClaimPoint Solutions\" visibleChars=1431"
+ },
+ {
+  "area": "page/public",
+  "target": "/terms",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Terms of Service — ClaimPoint Solutions\" visibleChars=1080"
+ },
+ {
+  "area": "page/public",
+  "target": "/login",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Log In — ClaimPoint Solutions\" visibleChars=532"
+ },
+ {
+  "area": "page/public",
+  "target": "/signup",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Create Account — ClaimPoint Solutions\" visibleChars=258"
+ },
+ {
+  "area": "page/public",
+  "target": "/forgot-password",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Reset Password — ClaimPoint Solutions\" visibleChars=223"
+ },
+ {
+  "area": "page/public",
+  "target": "/reset-password",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Set New Password — ClaimPoint Solutions\" visibleChars=197"
+ },
+ {
+  "area": "page/public",
+  "target": "/robots.txt",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"\" visibleChars=354"
+ },
+ {
+  "area": "page/public",
+  "target": "/sitemap.xml",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"\" visibleChars=966"
+ },
+ {
+  "area": "page/public",
+  "target": "/manifest.json",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"\" visibleChars=623"
+ },
+ {
+  "area": "page/public",
+  "target": "/sw.js",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"\" visibleChars=1132"
+ },
+ {
+  "area": "page/customer",
+  "target": "/dashboard",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Dashboard — ClaimPoint Solutions\" visibleChars=1124"
+ },
+ {
+  "area": "page/customer",
+  "target": "/accounts",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Accounts — ClaimPoint Solutions\" visibleChars=692"
+ },
+ {
+  "area": "page/customer",
+  "target": "/activity",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Activity — ClaimPoint Solutions\" visibleChars=727"
+ },
+ {
+  "area": "page/customer",
+  "target": "/beneficiaries",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Beneficiaries — ClaimPoint Solutions\" visibleChars=724"
+ },
+ {
+  "area": "page/customer",
+  "target": "/claims",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"My Claims — ClaimPoint Solutions\" visibleChars=739"
+ },
+ {
+  "area": "page/customer",
+  "target": "/claims/new",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Start a Claim — ClaimPoint Solutions\" visibleChars=576"
+ },
+ {
+  "area": "page/customer",
+  "target": "/deposits",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Deposit — ClaimPoint Solutions\" visibleChars=669"
+ },
+ {
+  "area": "page/customer",
+  "target": "/documents",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Documents — ClaimPoint Solutions\" visibleChars=749"
+ },
+ {
+  "area": "page/customer",
+  "target": "/notifications",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Notifications — ClaimPoint Solutions\" visibleChars=717"
+ },
+ {
+  "area": "page/customer",
+  "target": "/referrals",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Referrals — ClaimPoint Solutions\" visibleChars=793"
+ },
+ {
+  "area": "page/customer",
+  "target": "/savings",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Savings &amp; CDs — ClaimPoint Solutions\" visibleChars=925"
+ },
+ {
+  "area": "page/customer",
+  "target": "/settings",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Settings — ClaimPoint Solutions\" visibleChars=783"
+ },
+ {
+  "area": "page/customer",
+  "target": "/support",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Support — ClaimPoint Solutions\" visibleChars=1145"
+ },
+ {
+  "area": "page/customer",
+  "target": "/transfers",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Transfer — ClaimPoint Solutions\" visibleChars=762"
+ },
+ {
+  "area": "page/customer",
+  "target": "/withdrawals",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Withdraw — ClaimPoint Solutions\" visibleChars=663"
+ },
+ {
+  "area": "page/customer",
+  "target": "/onboarding",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Set Up Your Profile — ClaimPoint Solutions\" visibleChars=253"
+ },
+ {
+  "area": "page/customer",
+  "target": "/verify",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Verify Your Identity — ClaimPoint Solutions\" visibleChars=340"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/dashboard",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Admin Dashboard — ClaimPoint Solutions\" visibleChars=694"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/audit-log",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Audit Log — Admin — ClaimPoint Solutions\" visibleChars=2821"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/business-settings",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Business Settings — Admin — ClaimPoint Solutions\" visibleChars=658"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/chat",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Live Chat — Admin — ClaimPoint Solutions\" visibleChars=419"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/claims",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Claims &amp; Recovery — Admin — ClaimPoint Solutions\" visibleChars=663"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/customers",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Customers — Admin — ClaimPoint Solutions\" visibleChars=3121"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/financial-config",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Financial Configuration — Admin — ClaimPoint Solutions\" visibleChars=620"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/partners",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Partners — Admin — ClaimPoint Solutions\" visibleChars=786"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/products",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Products — Admin — ClaimPoint Solutions\" visibleChars=632"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/testimonials",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Testimonials — Admin — ClaimPoint Solutions\" visibleChars=2448"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/verification",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Verification Queue — Admin — ClaimPoint Solutions\" visibleChars=622"
+ },
+ {
+  "area": "api",
+  "target": "POST /api/claims",
+  "test": "create claim as customer",
+  "result": "works",
+  "detail": "201 {\"claim\":{\"id\":\"bf494a82-bc1c-4740-ba6f-2dd8d632de1d\",\"user_id\":\"be58240e-60a6-4800-a1ff-dc1aba05052f\",\"reference\":\"CP-71549\",\"category\":\"Audit test claim\",\"sta"
+ },
+ {
+  "area": "page/customer",
+  "target": "/claims/bf494a82-bc1c-4740-ba6f-2dd8d632de1d",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Claim Detail — ClaimPoint Solutions\" visibleChars=1039"
+ },
+ {
+  "area": "security",
+  "target": "/claims/bf494a82-bc1c-4740-ba6f-2dd8d632de1d",
+  "test": "customer B opens customer A's claim page",
+  "result": "works",
+  "detail": "404"
+ },
+ {
+  "area": "page/admin",
+  "target": "/cp-adm-7f92mk3x/customers/be58240e-60a6-4800-a1ff-dc1aba05052f",
+  "test": "GET page",
+  "result": "works",
+  "detail": "200 title=\"Customer Detail — Admin — ClaimPoint Solutions\" visibleChars=661"
+ },
+ {
+  "area": "link",
+  "target": "120 unique internal links",
+  "test": "crawl of links found on swept pages",
+  "result": "works",
+  "detail": ""
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/admin/partners/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/admin/partners/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "DELETE /api/admin/partners/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"success\":true}"
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/admin/testimonials/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/admin/testimonials/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "DELETE /api/admin/testimonials/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"success\":true}"
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/beneficiaries/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "DELETE /api/beneficiaries/[id]",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"success\":true}"
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/claims/evidence",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "DELETE /api/claims/evidence",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"deleted\":0}"
+ },
+ {
+  "area": "api/access",
+  "target": "DELETE /api/verification/documents",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "DELETE /api/verification/documents",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"deleted\":0}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/chat/conversation-messages",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/chat/conversation-messages",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/admin/chat/conversation-messages",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing conversationId\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/claims/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/claims/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/admin/claims/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 404 {\"error\":\"Cannot coerce the result to a single JSON object\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/claims/[id]/comments",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/claims/[id]/comments",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/admin/claims/[id]/comments",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"comments\":[]}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/notifications",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/notifications",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/admin/notifications",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"notifications\":[]}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/verification/[id]/detail",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/admin/verification/[id]/detail",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/admin/verification/[id]/detail",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 404 {\"error\":\"Cannot coerce the result to a single JSON object\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/chat/conversations",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/chat/conversations",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 201 {\"conversation\":{\"id\":\"ae1fdd51-1644-4db3-bcd3-685ca1b2998f\",\"user_id\":\"be58240e-60a6-4800-a1ff-dc1a"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/chat/messages",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/chat/messages",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing conversationId\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/notifications",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/notifications",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"notifications\":[]}"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/settings/export-data",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/settings/export-data",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 { \"exportedAt\": \"2026-10-27T01:53:43.946Z\", \"profile\": { \"id\": \"be58240e-60a6-4800-a1ff-dc1a"
+ },
+ {
+  "area": "api/access",
+  "target": "GET /api/verification/documents/signed-url",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "GET /api/verification/documents/signed-url",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing documentId\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/claims/[id]/status",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/claims/[id]/status",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/claims/[id]/status",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing status\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/notifications/[id]/read",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/notifications/[id]/read",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/notifications/[id]/read",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"success\":true}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/partners/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/partners/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/partners/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 {\"error\":\"Could not update partner.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/products/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/products/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/products/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 {\"error\":\"Could not update product.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/site-settings",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/site-settings",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/site-settings",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"settings\":{\"id\":1,\"company_name\":\"ClaimPoint Solutions\",\"support_email\":\"claimpoint.services@gmail"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/system-settings",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/system-settings",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/system-settings",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"settings\":{\"id\":1,\"production_financial_processing\":false,\"deposits_enabled\":true,\"withdrawals_ena"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/testimonials/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/testimonials/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/testimonials/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 {\"error\":\"Could not update testimonial.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/verification/[id]",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/admin/verification/[id]",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/admin/verification/[id]",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 404 {\"error\":\"Verification session not found\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/notifications/[id]/read",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/notifications/[id]/read",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 200 {\"success\":true}"
+ },
+ {
+  "area": "api/access",
+  "target": "PATCH /api/settings/profile",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "PATCH /api/settings/profile",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"No fields to update.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/accounts/[id]/close",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/accounts/[id]/close",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 404 {\"error\":\"Account not found.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/accounts/[id]/fund",
+  "test": "all",
+  "result": "skipped",
+  "detail": "money-adding flow excluded by instruction"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/chat/messages",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/chat/messages",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/admin/chat/messages",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing conversation or message.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/claims/[id]/comments",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/claims/[id]/comments",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/admin/claims/[id]/comments",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Message is required.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/partners",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/partners",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/admin/partners",
+  "test": "admin with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 "
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/products",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/products",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/admin/products",
+  "test": "admin with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 {\"error\":\"Could not create product.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/testimonials",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/testimonials",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/admin/testimonials",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Customer name and quote are required.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/verification/[id]/rerun-ai",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/admin/verification/[id]/rerun-ai",
+  "test": "customer is refused",
+  "result": "works",
+  "detail": "status 403"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/admin/verification/[id]/rerun-ai",
+  "test": "admin with empty/invalid input",
+  "result": "works",
+  "detail": "status 404 {\"error\":\"No front-of-ID document found for this session.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/beneficiaries",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/beneficiaries",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Nickname is required.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/chat/messages",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/chat/messages",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing conversation or message.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/claims",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/claims",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing required claim fields\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/claims/[id]/cancel",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/claims/[id]/cancel",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 404 {\"error\":\"Claim not found.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/claims/evidence",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/claims/evidence",
+  "test": "customer with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 "
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/onboarding",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/onboarding",
+  "test": "customer with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 "
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/products/open",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/products/open",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing product or amount.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/settings/password",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/settings/password",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Both current and new password are required.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/transactions/card-deposit",
+  "test": "all",
+  "result": "skipped",
+  "detail": "money-adding flow excluded by instruction"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/transactions/deposit",
+  "test": "all",
+  "result": "skipped",
+  "detail": "money-adding flow excluded by instruction"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/transactions/transfer",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/transactions/transfer",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Enter a valid transfer amount.\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/transactions/withdrawal",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/transactions/withdrawal",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 403 {\"error\":\"Verification required before withdrawals are available.\",\"code\":\"VERIFICATION_REQUIRED\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/verification",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/verification",
+  "test": "customer with empty/invalid input",
+  "result": "works",
+  "detail": "status 400 {\"error\":\"Missing required verification fields\"}"
+ },
+ {
+  "area": "api/access",
+  "target": "POST /api/verification/documents",
+  "test": "anonymous is refused",
+  "result": "works",
+  "detail": "status 401"
+ },
+ {
+  "area": "api/probe",
+  "target": "POST /api/verification/documents",
+  "test": "customer with empty/invalid input",
+  "result": "broken",
+  "detail": "status 500 "
+ },
+ {
+  "area": "api/customer",
+  "target": "PATCH /api/settings/profile",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 saved phone=+15550001111 street=null {\"profile\":{\"id\":\"be58240e-60a6-4800-a1ff-dc1aba05052f\",\"first_name\":\"Audit\",\"last_name\":\"CustA\",\"ph"
+ },
+ {
+  "area": "api/customer",
+  "target": "GET /api/settings/export-data",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 bytes=1699"
+ },
+ {
+  "area": "api/customer",
+  "target": "GET /api/notifications",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 {\"notifications\":[]}"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/beneficiaries",
+  "test": "happy path",
+  "result": "works",
+  "detail": "201 rows=1 {\"beneficiary\":{\"id\":\"74f66413-809a-47d3-9bbd-4276c4772fcc\",\"user_id\":\"be58240e-60a6-4800-a1ff-dc1aba05052f\",\"nickname\":"
+ },
+ {
+  "area": "security",
+  "target": "DELETE /api/beneficiaries/[id] (customer B on A)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "status 200; beneficiary still exists=true"
+ },
+ {
+  "area": "security",
+  "target": "GET /api/chat/messages",
+  "test": "customer B reads customer A's conversation",
+  "result": "works",
+  "detail": "status 404"
+ },
+ {
+  "area": "api/customer",
+  "target": "GET /api/chat/conversations + POST /api/chat/messages",
+  "test": "happy path",
+  "result": "works",
+  "detail": "post 201, get 200"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/claims/evidence",
+  "test": "happy path",
+  "result": "works",
+  "detail": "201 {\"evidence\":{\"id\":\"7cc343fe-5f2d-4249-b068-fa5c4bd0dd42\",\"claim_id\":null,\"user_id\":\"be58240e-60a6-4800-a1ff-dc1aba05052f\",\"storage_path\":\"be"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/claims/[id]/cancel (customer B on A)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "status 404; claim status=submitted"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/onboarding",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 {\"success\":true}"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/verification/documents (front/back/selfie)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "front:201 back:201 selfie:201"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/verification (submit)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "201 sessions=1 {\"session\":{\"id\":\"22c3f632-ce23-409b-8681-c0f95360ac08\",\"user_id\":\"be58240e-60a6-4800-a1ff-dc1aba05052f\",\"id_type\":\"driv"
+ },
+ {
+  "area": "security",
+  "target": "POST /api/accounts/[id]/close (customer B on A)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "status 404; account status=active"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/transactions/withdrawal",
+  "test": "rejects zero amount (valid payloads not sent)",
+  "result": "broken",
+  "detail": "403 {\"error\":\"Verification required before withdrawals are available.\",\"code\":\"VERIFICATION_REQUIRED\"}"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/transactions/transfer",
+  "test": "rejects zero amount (valid payloads not sent)",
+  "result": "works",
+  "detail": "400 {\"error\":\"Enter a valid transfer amount.\"}"
+ },
+ {
+  "area": "api/admin",
+  "target": "GET /api/admin/notifications",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200"
+ },
+ {
+  "area": "api/admin",
+  "target": "GET /api/admin/claims/[id]",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 {\"claim\":{\"id\":\"bf494a82-bc1c-4740-ba6f-2dd8d632de1d\",\"user_id\":\"be58240e-60a6-4800-a1ff-dc1aba05052"
+ },
+ {
+  "area": "api/admin",
+  "target": "PATCH /api/admin/claims/[id]/status",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 now=under_review {\"claim\":{\"id\":\"bf494a82-bc1c-4740-ba6f-2dd8d632de1d\",\"user_id\":\"be58240e-60a6-4800-a1ff-dc1aba05052"
+ },
+ {
+  "area": "api/admin",
+  "target": "POST+GET /api/admin/claims/[id]/comments",
+  "test": "happy path",
+  "result": "works",
+  "detail": "post 201 get 200"
+ },
+ {
+  "area": "api/admin",
+  "target": "GET /api/admin/verification/[id]/detail",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 bytes=3211"
+ },
+ {
+  "area": "api/admin",
+  "target": "PATCH /api/admin/verification/[id] (approve)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 profile now=approved {\"success\":true}"
+ },
+ {
+  "area": "api/admin",
+  "target": "POST/PATCH /api/admin/testimonials",
+  "test": "happy path",
+  "result": "works",
+  "detail": "post 201 patch 200 id=d9e14457-f582-40e3-89be-06ecc6b5cf13 {\"testimonial\":{\"id\":\"d9e14457-f582-40e3-89be-06ecc6b5cf13\",\"customer_name\":\"Audit Test\",\"customer_l"
+ },
+ {
+  "area": "api/admin",
+  "target": "POST/PATCH /api/admin/partners",
+  "test": "happy path",
+  "result": "works",
+  "detail": "post 201 patch 200 id=b29351a7-c96e-42d7-a455-4aefc9230170 {\"partner\":{\"id\":\"b29351a7-c96e-42d7-a455-4aefc9230170\",\"name\":\"Audit Partner (delete me)\",\"logo_pat"
+ },
+ {
+  "area": "api/admin",
+  "target": "POST/PATCH /api/admin/products",
+  "test": "happy path",
+  "result": "works",
+  "detail": "post 201 patch 200 id=c8c59fb7-aa5a-494d-a234-6b1ad1614723 {\"product\":{\"id\":\"c8c59fb7-aa5a-494d-a234-6b1ad1614723\",\"product_type\":\"savings\",\"name\":\"Audit Product (inactive, delete me)\",\"description\":"
+ },
+ {
+  "area": "api/admin",
+  "target": "PATCH /api/admin/site-settings (same values)",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200 unchanged=true {\"settings\":{\"id\":1,\"company_name\":\"ClaimPoint Solutions\",\"support_email\":\"claimpoint.services@gmail"
+ },
+ {
+  "area": "api/admin",
+  "target": "GET /api/admin/chat/conversation-messages + POST /api/admin/chat/messages",
+  "test": "happy path",
+  "result": "works",
+  "detail": "get 200 post 201"
+ },
+ {
+  "area": "api/customer",
+  "target": "POST /api/settings/request-deletion",
+  "test": "happy path",
+  "result": "works",
+  "detail": "200; session afterwards: dashboard -> 307"
+ },
+ {
+  "area": "rls/select",
+  "target": "profiles",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "accounts",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "transactions",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "beneficiaries",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "recovery_cases",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "claim_evidence",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "claim_comments",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "verification_sessions",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "verification_documents",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 3 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "notifications",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 3 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "chat_conversations",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "chat_messages",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 2 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "referrals",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "financial_products",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 3 rows; anon sees 3"
+ },
+ {
+  "area": "rls/select",
+  "target": "partners",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 8 rows; anon sees 5"
+ },
+ {
+  "area": "rls/select",
+  "target": "testimonials",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 5 rows; anon sees 5"
+ },
+ {
+  "area": "rls/select",
+  "target": "site_settings",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 1 rows; anon sees 1"
+ },
+ {
+  "area": "rls/select",
+  "target": "system_settings",
+  "test": "read as customer + anonymous",
+  "result": "broken",
+  "detail": "customer sees 1 rows; anon sees 0; customer can read admin-only table"
+ },
+ {
+  "area": "rls/select",
+  "target": "admins",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "admin_notifications",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees ERR rows (Could not find the table 'public.admin_notifications' in the schema cache); anon sees ERR (Could not find the table 'public.admin_notifications' in the schema cache)"
+ },
+ {
+  "area": "rls/select",
+  "target": "audit_log",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "verification_internal_review",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "claim_internal_review",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/select",
+  "target": "login_attempts",
+  "test": "read as customer + anonymous",
+  "result": "works",
+  "detail": "customer sees 0 rows; anon sees 0"
+ },
+ {
+  "area": "rls/write",
+  "target": "profiles.verification_status",
+  "test": "customer must NOT be able to write",
+  "result": "broken",
+  "detail": "write succeeded"
+ },
+ {
+  "area": "rls/write",
+  "target": "profiles.first_name (own)",
+  "test": "customer may write own row",
+  "result": "works",
+  "detail": "write succeeded"
+ },
+ {
+  "area": "rls/write",
+  "target": "accounts.available_balance",
+  "test": "customer must NOT be able to write",
+  "result": "broken",
+  "detail": "write succeeded"
+ },
+ {
+  "area": "rls/write",
+  "target": "recovery_cases.status",
+  "test": "customer must NOT be able to write",
+  "result": "broken",
+  "detail": "write succeeded"
+ },
+ {
+  "area": "rls/write",
+  "target": "admins insert",
+  "test": "customer must NOT be able to write",
+  "result": "works",
+  "detail": "new row violates row-level security policy for table \"admins\""
+ },
+ {
+  "area": "rls/write",
+  "target": "login_attempts insert",
+  "test": "customer must NOT be able to write",
+  "result": "works",
+  "detail": "new row violates row-level security policy for table \"login_attempts\""
+ },
+ {
+  "area": "rls/write",
+  "target": "site_settings.company_name",
+  "test": "customer must NOT be able to write",
+  "result": "works",
+  "detail": "invalid input syntax for type integer: \"00000000-0000-0000-0000-000000000000\""
+ },
+ {
+  "area": "rls/write",
+  "target": "transactions insert (arbitrary completed)",
+  "test": "customer must NOT be able to write",
+  "result": "works",
+  "detail": "null value in column \"reference\" of relation \"transactions\" violates not-null constraint"
+ },
+ {
+  "area": "rls/write",
+  "target": "notifications (other user)",
+  "test": "customer must NOT be able to write",
+  "result": "works",
+  "detail": "Could not find the 'is_read' column of 'notifications' in the schema cache"
+ },
+ {
+  "area": "rls/storage",
+  "target": "claim-evidence",
+  "test": "anonymous bucket listing",
+  "result": "works",
+  "detail": "0 objects visible"
+ },
+ {
+  "area": "rls/storage",
+  "target": "verification-documents",
+  "test": "anonymous bucket listing",
+  "result": "works",
+  "detail": "0 objects visible"
+ },
+ {
+  "area": "rls/storage",
+  "target": "partner-logos",
+  "test": "anonymous bucket listing",
+  "result": "works",
+  "detail": "3 objects visible"
+ }
+]
