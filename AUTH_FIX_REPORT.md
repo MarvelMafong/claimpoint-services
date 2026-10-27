@@ -46,7 +46,7 @@ Also checked: anonymous (anon key) cannot read or insert `login_attempts` (RLS b
 
 ## 3. What you must do manually
 
-1. **Schedule the keep-alive** on cron-job.org: Create cronjob → URL `https://www.claimpointsolutions.com/api/keep-alive` (the apex redirects to www, and some cron services do not follow redirects) → method GET → schedule every 12 hours (anything under 7 days works) → expected response 200 `{"ok":true}`; enable "notify on failure".
+1. **Keep-alive (two methods, no third-party cron site):** (a) the private GitHub repo `MarvelMafong/keepalive` runs a workflow three times a day (`7 1,9,17 * * *`) that reads one row of `site_settings` with the anon key (secrets `CLAIMPOINT_URL`, `CLAIMPOINT_ANON_KEY`); run it manually with `gh workflow run keepalive.yml --repo MarvelMafong/keepalive`. (b) Backup: `vercel.json` has a Vercel Cron calling `/api/keep-alive` daily at 05:17 UTC; check it under Vercel → Project → Settings → Cron Jobs after the deploy.
 2. After deploy, open `https://claimpointsolutions.com/api/health/auth`: it must say `"ok":true`.
 3. Do one manual Google login and one manual forgot-password email (click the link in the **same browser** you requested it from).
 4. Remove the test users listed in section 5 when you are done.
@@ -61,7 +61,7 @@ Also checked: anonymous (anon key) cannot read or insert `login_attempts` (RLS b
 - **Identity linking**: Supabase links a Google login to an existing password account only when the Google email is verified, and it is by email, so one person = one account. Keep **Confirm email = ON** (it is: an unconfirmed user exists), otherwise someone could pre-register another person's email with a password. Leave "Allow manual linking" off unless you want it. Users who signed up with Google only must use the Google button (they now get the Google message if they try a password).
 - **Vercel env vars** (Production, and Preview if you use previews): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, `NEXT_PUBLIC_APP_URL`, `GEMINI_API_KEY`. `/api/health/auth` reports which of the first three are missing.
 - **Reset link in another browser/device**: links are PKCE and only work in the browser that requested them. If customers open them from a phone mail app after requesting on desktop, they see the expired message. To remove that limit, change the "Reset Password" email template to link to `{{ .SiteURL }}/auth/callback?token_hash={{ .TokenHash }}&type=recovery&next=/reset-password` and tell me, and I will add the `verifyOtp` branch.
-- **Free-tier project pausing**: the keep-alive only helps if cron-job.org keeps running.
+- **Free-tier project pausing**: GitHub disables scheduled workflows after 60 days without repo activity; push or re-enable it in the Actions tab if that ever happens (the Vercel cron is the backup).
 - **Pre-hydration submit**: if a customer submits the login form before the page's JavaScript has loaded, the browser performs a normal GET form submit. Pre-existing, not changed (it needs a form `method` change).
 
 ## 5. Test users created (nothing was deleted; passwords were randomised at the end of each run)

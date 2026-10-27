@@ -34,6 +34,9 @@ export async function middleware(request) {
   const isCustomerPage = CUSTOMER_PREFIXES.some((p) => matches(path, p));
   const isProtected = isAdminPage || isAdminApi || isCustomerPage;
 
+  // Public pages, static files and images never reach Supabase.
+  if (!isProtected) return NextResponse.next({ request });
+
   let response = NextResponse.next({ request });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -117,8 +120,26 @@ export async function middleware(request) {
   return response;
 }
 
+// Static matcher (must be literal): only protected paths invoke middleware.
 export const config = {
   matcher: [
-    '/((?!_next/static|_next/image|favicon.ico|images).*)',
+    '/dashboard/:path*',
+    '/accounts/:path*',
+    '/activity/:path*',
+    '/beneficiaries/:path*',
+    '/claims/:path*',
+    '/deposits/:path*',
+    '/documents/:path*',
+    '/notifications/:path*',
+    '/referrals/:path*',
+    '/savings/:path*',
+    '/settings/:path*',
+    '/support/:path*',
+    '/transfers/:path*',
+    '/withdrawals/:path*',
+    '/onboarding/:path*',
+    '/verify/:path*',
+    '/cp-adm-7f92mk3x/:path*',
+    '/api/admin/:path*',
   ],
 };
